@@ -115,7 +115,52 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
 .result .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--cinnabar));border-radius:30px;width:0;transition:width 1.2s cubic-bezier(.2,.8,.3,1);}
 .review{margin-top:26px;text-align:left;}
 .review h3{font-size:19px;letter-spacing:.25em;color:var(--jade);border-bottom:2px solid var(--gold-light);padding-bottom:10px;margin-bottom:18px;}
-.card{background:um" id="qNum">第 1 / 20 题</div>
+.card{background:#fffdf6;border-left:4px solid var(--gold);border-radius:10px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(58,46,36,.06);}
+.card .q{font-weight:700;margin-bottom:8px;}
+.card .you{font-size:14px;color:var(--cinnabar);margin-bottom:4px;}
+.card .right{font-size:14px;color:var(--jade);}
+.card .tip{font-size:13px;color:rgba(58,46,36,.6);margin-top:8px;line-height:1.7;border-top:1px dashed var(--line);padding-top:8px;}
+.badge-row{font-size:13px;color:var(--gold);letter-spacing:.4em;margin-top:26px;text-align:center;}
+.share-tip{font-size:14px;color:var(--jade);margin-top:14px;}
+.hidden{display:none;}
+.toast{position:fixed;bottom:40px;left:50%;transform:translateX(-50%);background:rgba(58,46,36,.9);color:#fff;padding:10px 22px;border-radius:30px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+</style>
+</head>
+<body>
+<div class="toast" id="toast">链接已复制</div>
+<div id="snow"></div>
+<div class="poster" id="poster">
+  <div class="seal"><b>冬</b><span>季</span></div>
+  <div class="deco-line"><span>❖</span></div>
+  <h1>北方民俗文化问答</h1>
+  <div class="sub">北 国 风 情 · 时 令 雅 俗</div>
+  <div class="meta">共廿题 · 每题五分 · 及第六十分</div>
+  <div style="margin-top:26px;">
+    <button class="btn" style="margin:0 0 16px 0;" id="startBtn">先 读 知 识 · 再 开 卷</button><br>
+    <button class="btn" style="margin:0;background:linear-gradient(135deg,var(--jade),#2c5144);" id="startDirectBtn">直 接 开 卷</button><br>
+    <button class="btn btn-share" id="shareHomeBtn">🔗 分 享 此 卷</button>
+  </div>
+</div>
+<div class="panel hidden" id="knowledgePanel">
+  <div class="knowledge">
+    <h2>北 方 民 俗 要 览</h2>
+    <div class="k-sub">先读再考 · 了然于心</div>
+    <div id="knowledgeItems"></div>
+    <button class="btn k-go" id="knowledgeGoBtn">学 罢 开 卷 →</button>
+  </div>
+</div>
+<div class="panel hidden" id="quizPanel">
+  <div class="quiz">
+    <div class="topbar">
+      <span class="badge" id="badge">第一题</span>
+      <svg class="progress-ring" viewBox="0 0 60 60">
+        <circle class="bg" cx="30" cy="30" r="25" fill="none" stroke-width="5"/>
+        <circle class="fg" id="ringFg" cx="30" cy="30" r="25" fill="none" stroke-width="5" stroke-dasharray="157" stroke-dashoffset="157"/>
+        <text class="progress-txt" x="30" y="36" text-anchor="middle" id="ringTxt">0</text>
+      </svg>
+    </div>
+    <div class="q-num" id="qNum">第 1 / 20 题</div>
     <div class="q-text" id="qText"></div>
     <div class="options" id="options"></div>
     <div class="foot">
@@ -139,9 +184,6 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
     <div class="share-tip" id="shareTip"></div>
   </div>
 </div>
-<!-- ↓↓↓ 背景音乐（改动点1） ↓↓↓ -->
-<audio id="bgMusic" src="bgmusic.mp3" loop preload="auto"></audio>
-<!-- ↑↑↑ 背景音乐（改动点1） ↑↑↑ -->
 <script>
 var QUESTIONS=[
 {q:"北方冬季最具代表性的民俗食品是哪一项？",options:["饺子","凉粉","糍粑","汤圆"],ans:0,tip:"北方素有“冬至不端饺子碗，冻掉耳朵没人管”之说，饺子是北方冬日与节庆的重要民俗食品。"},
@@ -244,17 +286,6 @@ document.getElementById('shareResultBtn').onclick = ()=>{
   sharePage(s);
 };
 
-// ↓↓↓ 背景音乐启动逻辑（改动点2） ↓↓↓
-document.addEventListener('click', function startMusic(){
-  var m = document.getElementById('bgMusic');
-  if(m && m.paused){
-    m.volume = 0.5;
-    m.play().catch(function(){});
-  }
-  document.removeEventListener('click', startMusic);
-});
-// ↑↑↑ 背景音乐启动逻辑（改动点2） ↑↑↑
-
 document.getElementById('startBtn').onclick=function(){showKnowledge();};
 document.getElementById('startDirectBtn').onclick=function(){startQuiz();};
 document.getElementById('knowledgeGoBtn').onclick=function(){startQuiz();};
@@ -276,7 +307,6 @@ if(review.length){rb.innerHTML='<h3>错 题 温 故</h3>'+review.map(function(r)
 document.getElementById('shareTip').innerText = "邀请好友一同答题，看看谁是民俗达人";
 }
 document.getElementById('restartBtn').onclick=function(){idx=0;score=0;review=[];bmarks=new Set();document.getElementById('resultPanel').classList.add('hidden');document.getElementById('poster').classList.remove('hidden');};
-   
 </script>
 </body>
 </html>
