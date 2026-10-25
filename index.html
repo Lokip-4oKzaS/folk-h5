@@ -2,286 +2,233 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>北方民俗文化问答</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{
-  --red:#c63a2e; --red-dark:#9e2d24; --gold:#e8b64c; --gold-light:#f5d992;
-  --cream:#fbf3e3; --bg1:#f7e6cf; --bg2:#f0d3b0; --ink:#4a2b22;
+  --paper:#f7f1e3;--ink:#3a2e24;
+  --cinnabar:#a53b2e;--cinnabar-deep:#7e2c22;
+  --gold:#c9a227;--gold-light:#e8d49a;--jade:#3d6b5a;
+  --line:rgba(58,46,36,.14);
 }
+*{margin:0;padding:0;box-sizing:border-box;}
 html,body{height:100%;}
-body{
-  font-family:"PingFang SC","Microsoft YaHei",sans-serif;
-  background:radial-gradient(120% 120% at 50% -10%, #f4ecdb 0%, #e9dcc4 40%, #dccfb0 100%);
-  overflow:hidden; color:var(--ink);
-}
-.cloud-top,.cloud-bottom{position:fixed;left:0;right:0;pointer-events:none;z-index:1;opacity:.45;height:70px;}
-.cloud-top{top:0;background-image:radial-gradient(90px 38px at 60px 55px, rgba(190,150,80,.5) 0, rgba(190,150,80,.5) 60%, transparent 70%);background-repeat:repeat-x;background-size:280px auto;}
-.cloud-bottom{bottom:0;transform:rotate(180deg);background-repeat:repeat-x;background-size:280px auto;background-image:radial-gradient(90px 38px at 60px 55px, rgba(190,150,80,.5) 0, rgba(190,150,80,.5) 60%, transparent 70%);}
-#particles{position:fixed;inset:0;pointer-events:none;z-index:2;}
-.page{position:absolute;inset:0;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:28px 22px;overflow-y:auto;}
-.page.active{display:flex;animation:pageIn .6s ease both;}
-@keyframes pageIn{from{opacity:0;transform:translateY(24px) scale(.97);}to{opacity:1;transform:none;}}
-.card{position:relative;width:100%;max-width:430px;background:linear-gradient(160deg,#fffdf6,#f9ead0);border:2px solid var(--gold);border-radius:22px;padding:30px 26px;box-shadow:0 18px 40px rgba(90,55,25,.2), inset 0 0 30px rgba(240,200,120,.25);}
-.card::before,.card::after{content:"";position:absolute;width:26px;height:26px;border:3px solid var(--gold);}
-.card::before{top:10px;left:10px;border-right:none;border-bottom:none;border-top-left-radius:12px;}
-.card::after{bottom:10px;right:10px;border-left:none;border-top:none;border-bottom-right-radius:12px;}
-.card h2{font-size:24px;color:var(--red-dark);letter-spacing:2px;margin-bottom:6px;font-weight:800;}
-.card h2 i{font-style:normal;color:var(--gold);font-family:Georgia,"KaiTi",serif;margin-right:6px;}
-.sub{color:#8a6a55;font-size:13px;margin-bottom:10px;letter-spacing:1px;}
-.deco-line{width:64px;height:3px;background:linear-gradient(90deg,transparent,var(--red),transparent);margin:8px auto 16px;border-radius:3px;position:relative;}
-.deco-line::after{content:"";position:absolute;left:50%;top:-5px;transform:translateX(-50%);width:9px;height:9px;background:var(--gold-light);border:2px solid var(--gold);border-radius:50%;animation:pulseDot 1.6s infinite;}
-@keyframes pulseDot{0%,100%{transform:translateX(-50%) scale(1);}50%{transform:translateX(-50%) scale(1.4);}}
-.btn{display:inline-block;border:none;cursor:pointer;text-decoration:none;padding:13px 34px;border-radius:40px;font-size:16px;letter-spacing:2px;font-weight:700;transition:transform .18s ease, box-shadow .18s ease;}
-.btn-primary{background:linear-gradient(180deg,var(--red),var(--red-dark));color:#fff;box-shadow:0 6px 16px rgba(158,45,36,.4), inset 0 -2px 0 rgba(0,0,0,.15);animation:breath 2.4s infinite;}
-@keyframes breath{0%,100%{box-shadow:0 6px 16px rgba(158,45,36,.4),0 0 0 0 rgba(198,58,46,.4);}50%{box-shadow:0 6px 20px rgba(158,45,36,.5),0 0 0 10px rgba(198,58,46,0);}}
-.btn:hover{transform:translateY(-3px) scale(1.04);}
-.btn:active{transform:translateY(1px) scale(.97);}
-.btn-outline{background:transparent;color:var(--red-dark);border:2px solid var(--red-dark);box-shadow:none;}
-#load h1{font-size:28px;color:var(--red-dark);font-family:Georgia,"KaiTi",serif;letter-spacing:4px;margin-bottom:6px;}
-.lantern{font-size:52px;display:inline-block;margin:12px 4px;animation:swing 1.6s ease-in-out infinite;filter:drop-shadow(0 6px 8px rgba(158,45,36,.3));}
-.lantern:nth-child(2){animation-delay:.2s}.lantern:nth-child(3){animation-delay:.4s}
-@keyframes swing{0%,100%{transform:rotate(-8deg);}50%{transform:rotate(8deg);}}
-.progress-wrap{width:230px;height:12px;border-radius:20px;background:#e8d6b8;border:1px solid var(--gold);overflow:hidden;margin:18px auto 10px;}
-#progressBar{width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,var(--red),var(--gold));transition:width .25s;position:relative;}
-#progressBar::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.55) 50%,transparent 70%);animation:shine 1.4s infinite;}
-@keyframes shine{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
-#loadTip{font-size:13px;color:#8a6a55;}
-.tabs{display:flex;gap:6px;margin:4px auto 14px;background:#eee0c4;border-radius:30px;padding:5px;width:100%;}
-.tab{flex:1;text-align:center;padding:9px 6px;font-size:14px;color:#7a5a3a;border-radius:26px;cursor:pointer;font-weight:700;transition:.25s;border:none;}
-.tab.active{background:linear-gradient(180deg,var(--red),var(--red-dark));color:#fff;box-shadow:0 3px 8px rgba(158,45,36,.35);}
-.intro{background:#fdf3e0;border:1px dashed var(--gold);border-radius:14px;padding:14px;font-size:14px;line-height:1.9;color:#5b3a2c;margin-bottom:14px;text-align:left;}
-.rule-block{font-size:13px;line-height:1.6;color:#8a6a55;text-align:left;margin-bottom:6px;}
-.knowledge{background:#fdf6e9;border:1px solid #ead8ad;border-radius:12px;padding:12px 14px;text-align:left;font-size:13.5px;line-height:1.9;color:#5b3a2c;display:none;}
-.knowledge.show{display:block;animation:fadeUp .4s;}
-.knowledge h4{color:var(--red-dark);margin-bottom:6px;font-size:14px;}
-.knowledge h4::before{content:"📖 ";}
-.knowledge li{margin:4px 0 4px 16px;}
-.q-meta{font-size:13px;color:var(--red-dark);margin-bottom:10px;font-weight:700;}
-#qText{font-size:19px;line-height:1.6;margin:6px 0 16px;color:#3f2419;}
-.opt{display:block;width:100%;text-align:left;background:#fff8ea;border:2px solid #ebd5a8;padding:14px 18px;border-radius:14px;margin-bottom:11px;font-size:15px;cursor:pointer;transition:transform .18s,border-color .2s,background .2s;color:var(--ink);font-family:inherit;}
-.opt:hover{transform:translateX(6px) scale(1.02);border-color:var(--gold);}
-.opt.correct{background:#e3f3dc;border-color:#5aaa4d;animation:pop .4s;}
-.opt.wrong{background:#fbdcd8;border-color:var(--red);animation:shake .4s;}
-.opt:disabled{cursor:default;opacity:.9;}
-@keyframes pop{0%{transform:scale(1);}50%{transform:scale(1.06);}100%{transform:scale(1);}}
-@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-7px);}75%{transform:translateX(7px);}}
-#feedback{font-size:16px;font-weight:700;min-height:24px;margin:4px 0 10px;}
-#knowBox{margin:6px 0 12px;}
-.score-big{font-size:64px;font-weight:900;color:var(--red-dark);line-height:1;animation:scoreZoom .6s ease;}
-@keyframes scoreZoom{0%{transform:scale(.3);opacity:0;}70%{transform:scale(1.15);}100%{transform:scale(1);opacity:1;}}
-.score-tag{font-size:15px;color:#8a6a55;margin:8px 0 4px;}
-.verdict{font-size:18px;color:var(--red-dark);font-weight:800;margin:10px 0;animation:fadeUp .8s .3s both;}
-#gift{font-size:14.5px;color:#6b4a2f;line-height:1.8;background:#fdf3e0;border:1px dashed var(--gold);border-radius:12px;padding:13px;margin:6px 0 16px;animation:fadeUp .8s .6s both;}
-.thankyou{margin-top:10px;font-size:14px;color:var(--gold);letter-spacing:4px;animation:fadeUp 1s 1s both;}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:none;}}
-.mis{background:#fff7e6;border:1px solid #ecd9a8;border-left:4px solid var(--red);border-radius:10px;padding:11px 13px;margin-bottom:9px;font-size:13.5px;line-height:1.7;color:#5b3a2c;text-align:left;}
-.mis .mq{font-weight:800;color:var(--red-dark);margin-bottom:3px;}
-.mis .my{color:#5aaa4d;}
-.mis .mo{color:var(--red);}
-.link-btn{display:inline-block;margin-top:8px;font-size:13px;color:#8a6a55;text-decoration:underline;cursor:pointer;background:none;border:none;margin-right:12px;}
-.sound-tip{position:fixed;top:14px;right:14px;z-index:60;background:rgba(255,248,234,.9);border:1px solid var(--gold);border-radius:30px;padding:8px 14px;font-size:13px;color:var(--red-dark);cursor:pointer;font-weight:700;}
-.mistake-title{color:var(--red-dark);text-align:center;margin:14px 0 8px;font-size:16px;}
-@media(max-width:380px){.card{padding:22px 18px}.score-big{font-size:54px}}
+body{font-family:"Noto Serif SC","Songti SC","SimSun",serif;color:var(--ink);
+  background:radial-gradient(1200px 800px at 85% -5%,rgba(201,162,39,.10),transparent 60%),
+    radial-gradient(900px 700px at -10% 30%,rgba(61,107,90,.08),transparent 60%),
+    radial-gradient(1000px 900px at 50% 110%,rgba(165,59,46,.07),transparent 55%),var(--paper);
+  overflow-x:hidden;position:relative;}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;
+  background-image:repeating-linear-gradient(0deg,rgba(58,46,36,.016) 0 1px,transparent 1px 3px);}
+#snow{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:50;}
+
+.poster{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;text-align:center;gap:22px;padding:40px 20px;}
+.poster .seal{width:112px;height:112px;border-radius:14px;background:var(--cinnabar);
+  display:flex;flex-direction:column;justify-content:center;align-items:center;color:var(--paper);
+  font-weight:700;font-size:13px;letter-spacing:.4em;text-indent:.4em;
+  box-shadow:0 10px 26px rgba(126,44,34,.38),inset 0 0 0 3px rgba(247,241,227,.55);
+  transform:rotate(-3deg);animation:pop .9s cubic-bezier(.2,.9,.3,1.3) both;}
+.poster .seal b{font-size:34px;letter-spacing:.1em;text-indent:.1em;line-height:1.05;}
+.poster h1{font-size:clamp(38px,8vw,74px);font-weight:900;letter-spacing:.12em;line-height:1.1;
+  background:linear-gradient(180deg,#8a2f24,#5c1f18);-webkit-background-clip:text;background-clip:text;color:transparent;
+  text-shadow:0 2px 0 rgba(247,241,227,.8);animation:rise .9s .1s both;}
+.poster .sub{font-size:clamp(15px,2.4vw,19px);letter-spacing:.5em;text-indent:.5em;color:var(--jade);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:12px 26px;margin-top:6px;animation:rise .9s .22s both;}
+.poster .deco-line{display:flex;align-items:center;gap:14px;color:var(--gold);animation:rise .9s .34s both;}
+.poster .deco-line::before,.poster .deco-line::after{content:"";width:70px;height:1px;}
+.poster .deco-line::before{background:linear-gradient(90deg,transparent,var(--gold));}
+.poster .deco-line::after{background:linear-gradient(270deg,transparent,var(--gold));}
+.poster .meta{font-size:13px;letter-spacing:.35em;color:rgba(58,46,36,.55);margin-top:8px;animation:rise .9s .4s both;}
+.btn{margin-top:26px;padding:17px 58px;border:none;cursor:pointer;font-family:inherit;font-size:18px;
+  letter-spacing:.4em;text-indent:.4em;color:var(--paper);
+  background:linear-gradient(135deg,var(--cinnabar),var(--cinnabar-deep));border-radius:4px;
+  box-shadow:0 10px 26px rgba(126,44,34,.40),inset 0 1px 0 rgba(247,241,227,.35);
+  position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s;animation:rise .9s .5s both;}
+.btn::after{content:"";position:absolute;top:0;left:-130%;width:80%;height:100%;
+  background:linear-gradient(100deg,transparent,rgba(247,241,227,.5),transparent);
+  transition:left .6s;transform:skewX(-20deg);}
+.btn:hover{transform:translateY(-3px);box-shadow:0 16px 34px rgba(126,44,34,.45);}
+.btn:hover::after{left:140%;}
+@keyframes pop{from{transform:rotate(-8deg) scale(.4);opacity:0;}to{transform:rotate(-3deg) scale(1);opacity:1;}}
+@keyframes rise{from{transform:translateY(26px);opacity:0;}to{transform:none;opacity:1;}}
+@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-7px);}}
+
+.panel{position:relative;z-index:2;max-width:760px;margin:0 auto;padding:40px 18px 80px;}
+.quiz{background:rgba(247,241,227,.88);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 22px 60px rgba(58,46,36,.14);backdrop-filter:blur(4px);
+  padding:34px 30px 30px;animation:fadein .6s both;}
+@keyframes fadein{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
+.badge{font-size:13px;letter-spacing:.2em;color:var(--jade);border:1px solid rgba(61,107,90,.35);padding:6px 14px;border-radius:30px;}
+.progress-ring{width:58px;height:58px;}.progress-ring .bg{stroke:rgba(58,46,36,.1);}
+.progress-ring .fg{stroke:var(--gold);stroke-linecap:round;transition:stroke-dashoffset .5s;}
+.progress-txt{fill:var(--cinnabar-deep);font:700 17px serif;}
+.q-num{font-size:13px;letter-spacing:.3em;color:rgba(58,46,36,.5);margin-bottom:12px;}
+.q-text{font-size:clamp(21px,3.6vw,27px);font-weight:800;line-height:1.6;margin-bottom:26px;color:var(--ink);}
+.options{display:flex;flex-direction:column;gap:13px;}
+.opt{position:relative;text-align:left;padding:16px 18px 16px 54px;border-radius:10px;cursor:pointer;
+  font-family:inherit;font-size:17px;letter-spacing:.04em;color:var(--ink);background:#fffdf6;border:1px solid var(--line);
+  transition:transform .18s,border-color .18s,box-shadow .18s,background .18s;overflow:hidden;}
+.opt::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:transparent;transition:background .2s;}
+.opt .mark{position:absolute;left:16px;top:50%;transform:translateY(-50%);width:26px;height:26px;border:1px solid var(--line);
+  border-radius:50%;display:flex;justify-content:center;align-items:center;font-size:13px;color:var(--paper);transition:.2s;}
+.opt:hover{transform:translateX(5px);border-color:var(--gold);box-shadow:0 6px 18px rgba(201,162,39,.16);}
+.opt:hover .mark{border-color:var(--gold);}
+.opt.selected{border-color:var(--cinnabar);background:#fbf0ec;}
+.opt.selected .mark{background:var(--cinnabar);border-color:var(--cinnabar);}
+.opt.selected::before{background:var(--cinnabar);}
+.opt.correct{border-color:var(--jade);background:#eef4ef;animation:shake-ok .4s;}
+.opt.correct .mark{background:var(--jade);border-color:var(--jade);}
+.opt.wrong{border-color:var(--cinnabar);background:#fbe9e5;animation:shake .45s;}
+.opt.wrong .mark{background:var(--cinnabar);border-color:var(--cinnabar);}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-6px);}50%{transform:translateX(6px);}75%{transform:translateX(-4px);}}
+@keyframes shake-ok{0%{transform:scale(1);}50%{transform:scale(1.015);}100%{transform:scale(1);}}
+.foot{margin-top:26px;display:flex;justify-content:space-between;align-items:center;gap:12px;}
+.bookmark{padding:11px 18px;border:1px solid var(--line);background:#fffdf6;color:var(--jade);border-radius:8px;cursor:pointer;
+  font-family:inherit;font-size:14px;letter-spacing:.1em;transition:.2s;}
+.bookmark.on{border-color:var(--gold);color:var(--gold);background:#fbf4df;}
+.btn-next{margin:0;font-size:16px;padding:14px 44px;}
+.btn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;box-shadow:none;}
+
+.result{background:rgba(247,241,227,.92);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 22px 60px rgba(58,46,36,.14);padding:46px 30px;text-align:center;animation:fadein .6s both;}
+.medal{width:130px;height:130px;margin:0 auto 20px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,var(--gold-light),var(--gold) 55%,#927314);
+  display:flex;justify-content:center;align-items:center;color:var(--paper);font-size:52px;
+  box-shadow:0 14px 34px rgba(201,162,39,.5),inset 0 0 0 5px rgba(247,241,227,.7);animation:floaty 3s ease-in-out infinite;}
+.result h2{font-size:30px;letter-spacing:.2em;color:var(--cinnabar-deep);margin-bottom:14px;}
+.result .score{font-size:52px;font-weight:900;color:var(--gold);letter-spacing:.05em;line-height:1;}
+.result .score small{font-size:22px;color:rgba(58,46,36,.5);}
+.result .grade{font-size:17px;color:var(--jade);margin:16px 0 6px;letter-spacing:.3em;}
+.result .comment{font-size:14px;color:rgba(58,46,36,.6);margin-bottom:24px;line-height:1.7;}
+.result .bar{height:14px;background:rgba(58,46,36,.1);border-radius:30px;overflow:hidden;margin:0 auto 26px;max-width:420px;}
+.result .bar span{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--cinnabar));border-radius:30px;width:0;transition:width 1.2s cubic-bezier(.2,.8,.3,1);}
+.review{margin-top:26px;text-align:left;}
+.review h3{font-size:19px;letter-spacing:.25em;color:var(--jade);border-bottom:2px solid var(--gold-light);padding-bottom:10px;margin-bottom:18px;}
+.card{background:#fffdf6;border-left:4px solid var(--gold);border-radius:10px;padding:16px 18px;margin-bottom:14px;box-shadow:0 4px 14px rgba(58,46,36,.06);}
+.card .q{font-weight:700;margin-bottom:8px;}
+.card .you{font-size:14px;color:var(--cinnabar);margin-bottom:4px;}
+.card .right{font-size:14px;color:var(--jade);}
+.card .tip{font-size:13px;color:rgba(58,46,36,.6);margin-top:8px;line-height:1.7;border-top:1px dashed var(--line);padding-top:8px;}
+.badge-row{font-size:13px;color:var(--gold);letter-spacing:.4em;margin-top:26px;text-align:center;}
+.hidden{display:none;}
 </style>
 </head>
 <body>
-
-<div class="cloud-top"></div>
-<div class="cloud-bottom"></div>
-<canvas id="particles"></canvas>
-
-<div class="sound-tip" id="soundBtn" onclick="toggleSound()">🔊 音效开</div>
-
-<!-- 加载页 -->
-<div class="page active" id="load">
-  <div class="card" style="border:none;background:transparent;box-shadow:none;">
-    <div><span class="lantern">🏮</span><span class="lantern">🏮</span><span class="lantern">🏮</span></div>
-    <h1>北方民俗知多少</h1>
-    <p class="sub">关东大地 · 风情万种</p>
-    <div class="progress-wrap"><div id="progressBar"></div></div>
-    <p id="loadTip">正在布置灯笼…</p>
+<div id="snow"></div>
+<div class="poster" id="poster">
+  <div class="seal"><b>冬</b><span>季</span></div>
+  <div class="deco-line"><span>❖</span></div>
+  <h1>北方民俗文化问答</h1>
+  <div class="sub">北 国 风 情 · 时 令 雅 俗</div>
+  <div class="meta">共廿题 · 每题五分 · 及第六十分</div>
+  <div style="margin-top:26px;">
+    <button class="btn" style="margin:0 0 16px 0;" id="startBtn">先 读 知 识 · 再 开 卷</button><br>
+    <button class="btn" style="margin:0;background:linear-gradient(135deg,var(--jade),#2c5144);" id="startDirectBtn">直 接 开 卷</button>
   </div>
 </div>
-
-<!-- 欢迎页：知识普及 + 参与答题 双入口 -->
-<div class="page" id="welcome">
-  <div class="card">
-    <h2><i>◆</i>北方民俗文化</h2>
-    <div class="deco-line"></div>
-    <div class="tabs">
-      <button class="tab active" id="tabPlay" onclick="switchTab('play')">📜 开始答题</button>
-      <button class="tab" id="tabKnow" onclick="switchTab('know')">📖 民俗知识</button>
+<div class="panel hidden" id="quizPanel">
+  <div class="quiz">
+    <div class="topbar">
+      <span class="badge" id="badge">第一题</span>
+      <svg class="progress-ring" viewBox="0 0 60 60">
+        <circle class="bg" cx="30" cy="30" r="25" fill="none" stroke-width="5"/>
+        <circle class="fg" id="ringFg" cx="30" cy="30" r="25" fill="none" stroke-width="5" stroke-dasharray="157" stroke-dashoffset="157"/>
+        <text class="progress-txt" x="30" y="36" text-anchor="middle" id="ringTxt">0</text>
+      </svg>
     </div>
-    <!-- 参与答题面板 -->
-    <div id="panelPlay">
-      <div class="intro">❄️ 北方民俗以冰雪文化、关东风情、京津曲艺与节令饮食为代表，蕴藏着质朴豪迈的生活智慧。一起来重温那些白山黑水间的文化记忆吧！</div>
-      <div class="rule-block">📌 共 20 道题，每题 4 个选项；</div>
-      <div class="rule-block">📌 答对 +20 分，答错不计分；</div>
-      <div class="rule-block">📌 每答完一题，都会为你普及一条民俗知识。</div>
-      <button class="btn btn-primary" onclick="initQuiz();showPage('quiz')" style="margin-top:8px;">进入答题</button>
-    </div>
-    <!-- 知识普及面板 -->
-    <div class="knowledge show" id="panelKnow">
-      <h4>北方民俗知识卡片</h4>
-      <ul>
-        <li><b>冰灯</b>：源自北方渔民冬日凿冰捕鱼，后发展为冰雪艺术。哈尔滨是中国冰雪艺术摇篮，1963年起在兆麟公园举办冰灯展。</li>
-        <li><b>守岁</b>：除夕夜通宵不眠。源于古代"年"兽传说，点烛守夜以驱邪，寓意辞旧迎新、祈求平安。</li>
-        <li><b>祭灶</b>：腊月二十三祭灶神，供糖瓜、饴糖"粘住灶神之口"，让其上天言好。</li>
-        <li><b>评剧</b>：产生于冀东（河北东部），由河北莲花落与东北二人转结合形成，是北方主要戏曲剧种。</li>
-        <li><b>皮影戏</b>：唐山皮影（滦州影）是冀东文艺"三枝花"之一，流行于河北、东北，以牛驴皮制影人，已有四百余年历史。</li>
-        <li><b>二月二「龙抬头」</b>：吃饼叫吃"龙皮"，饺子叫"龙耳"，面条叫"龙须"；儿童剃头叫"剃龙头"。</li>
-        <li><b>冻梨</b>：东北冬季习俗，将秋梨冻食，如今在年节饭桌常作解酒小食。</li>
-      </ul>
+    <div class="q-num" id="qNum">第 1 / 20 题</div>
+    <div class="q-text" id="qText"></div>
+    <div class="options" id="options"></div>
+    <div class="foot">
+      <button class="bookmark" id="bookmark">♡ 收藏此题</button>
+      <button class="btn btn-next" id="nextBtn" disabled>下一题</button>
     </div>
   </div>
 </div>
-
-<!-- 答题页 -->
-<div class="page" id="quiz">
-  <div class="card">
-    <h2><i>◆</i>北方民俗问答</h2>
-    <div class="deco-line"></div>
-    <div class="q-meta" id="qMeta"></div>
-    <h3 id="qText"></h3>
-    <div id="options"></div>
-    <div id="feedback"></div>
-    <div id="knowBox"></div>
-    <button class="btn btn-primary" id="nextBtn" onclick="nextQ()" style="display:none;">下一题</button>
-    <button class="btn btn-primary" id="finishBtn" onclick="toEnd()" style="display:none;">查看成绩</button>
-    <div style="margin-top:10px;"><button class="link-btn" onclick="showPage('welcome')">← 返回首页</button></div>
+<div class="panel hidden" id="resultPanel">
+  <div class="result">
+    <div class="medal" id="medal">🏮</div>
+    <h2 id="gradeTitle">放 榜</h2>
+    <div class="score" id="score">0<small> / 100</small></div>
+    <div class="grade" id="grade"></div>
+    <div class="comment" id="comment"></div>
+    <div class="bar"><span id="barFill"></span></div>
+    <div class="badge-row">❖ 寒 来 暑 往 · 秋 收 冬 藏 ❖</div>
+    <div class="review" id="reviewBox"></div>
+    <button class="btn" id="restartBtn" style="margin:8px auto 10px;display:block;">再 试 一 回</button>
   </div>
 </div>
-
-<!-- 结束页 -->
-<div class="page" id="end">
-  <div class="card">
-    <h2><i>◆</i>答题完成</h2>
-    <div class="deco-line"></div>
-    <div class="score-tag">你的最终得分</div>
-    <div class="score-big" id="finalScore">0</div>
-    <div class="verdict" id="verdict"></div>
-    <div id="gift"></div>
-    <button class="btn btn-primary" onclick="resetQuiz()">再来一次</button>
-    <button class="btn btn-outline" onclick="showPage('welcome')" style="margin-left:8px;">浏览知识</button>
-    <div class="thankyou">🏮 感谢你传承北方民俗 🏮</div>
-    <div class="mistake-title" id="mistakeTitle" style="display:none;">📕 错题回顾</div>
-    <div id="mistakeList"></div>
-  </div>
-</div>
-
 <script>
-const QUESTIONS=[
- {q:"春节北方人家在门口张贴什么来驱邪纳福？",opts:["门神年画","窗花剪纸","红灯笼","年糕"],ans:0,k:"门神年画是北方传统年俗，源于神话中驱邪纳福的神像，春节期间张贴祈求家宅平安。"},
- {q:"端午节北方最典型的民俗活动是？",opts:["赛龙舟","赏花灯","登高","吃汤圆"],ans:0,k:"端午节北方也盛行赛龙舟、包粽子、挂艾草等习俗，纪念爱国诗人屈原，祈求祛病除疫。"},
- {q:"中秋节北方吃月饼象征什么？",opts:["团圆美满","五谷丰登","驱邪避疫","招财进宝"],ans:0,k:"月饼形圆，象征团圆。中秋月圆之际阖家赏月、分食月饼，寄托对美满生活的祝愿。"},
- {q:"腊八节北方的传统食物是？",opts:["饺子","汤圆","腊八粥","粽子"],ans:2,k:"腊八节要喝腊八粥，源于佛教佛祖成道传说，腊月初八以多谷豆熬粥祭祀祈福。"},
- {q:"北方传统婚嫁中，新娘通常要盖什么？",opts:["红盖头","凤冠","绣球","玉佩"],ans:0,k:"红盖头是北方婚礼经典元素，红色象征喜庆吉祥，盖头营造神秘与庄重的仪式感。"},
- {q:"东北三大怪中，以下哪一项是其中之一？",opts:["窗户纸糊在外","房顶长满草","出门坐花轿","天天吃大鱼"],ans:0,k:"东北三大怪即窗户纸糊在外、大姑娘叼烟袋、养活孩子吊起来，是关东民俗的经典写照。"},
- {q:"除夕夜北方守岁的习俗起源于什么传说？",opts:["驱赶年兽","纪念祖先","庆祝丰收","迎月神"],ans:0,k:"相传年兽在除夕夜伤人，人们通宵点烛、放爆竹驱赶它，遂成守岁习俗。"},
- {q:"腊月二十三北方祭灶，人们供奉什么来粘住灶神之口？",opts:["糖瓜饴糖","咸菜","豆腐","腊肉"],ans:0,k:"祭灶时供糖瓜、饴糖，让灶神上天向玉帝言好，这是北方重要的年前习俗。"},
- {q:"评剧这个北方戏曲剧种，是由哪些艺术结合形成的？",opts:["莲花落与二人转","昆曲与京剧","秦腔与豫剧","黄梅戏与越剧"],ans:0,k:"评剧产生于河北东部，由流行于河北农村的莲花落与东北二人转（走唱）结合而成。"},
- {q:"被称为冀东文艺三枝花之一、流行于河北和东北的戏曲是？",opts:["唐山皮影戏","京剧","昆曲","秦腔"],ans:0,k:"唐山皮影（又称滦州影）是冀东文艺三枝花之一，以牛驴皮制影人，已有四百余年历史。"},
- {q:"二月二龙抬头这天，北方儿童通常做什么？",opts:["剃头（剃龙头）","吃月饼","放风筝","赛龙舟"],ans:0,k:"二月二又称龙头节，儿童这天剃头叫剃龙头，寓意辞旧迎新、鸿运当头。"},
- {q:"二月二的习俗中，吃面条被称作什么？",opts:["吃龙须","吃龙皮","吃龙角","吃龙尾"],ans:0,k:"二月二讲究与龙相关：吃饼叫吃龙皮，吃饺子叫龙耳，吃面条叫吃龙须。"},
- {q:"哈尔滨大规模有组织制作冰灯始于哪一年？",opts:["1963年","1949年","1978年","2000年"],ans:0,k:"哈尔滨大规模制冰灯始于1963年，在兆麟公园展出千余盏冰灯，轰动全城。"},
- {q:"北方冰雪艺术中的冰灯最初起源于什么？",opts:["渔民冬日凿冰捕鱼","皇宫庆典","道教祭祀","少数民族歌舞"],ans:0,k:"冰灯源于北方渔民冬日凿冰捕鱼，后发展为冰雪艺术展览，以灯光与冰雪结合营造童话世界。"},
- {q:"东北冬季饮食中，常用于年节饭桌、可作解酒小食的是？",opts:["冻梨","西瓜","荔枝","芒果"],ans:0,k:"冻梨是东北传统冬季食品，乡下过年吃冻梨的习俗流传已久，如今也常被端上饭桌作解酒小食。"},
- {q:"东北二人转以什么为基础形成，特色鲜明？",opts:["秧歌","京剧","评弹","高跷"],ans:0,k:"二人转以秧歌为底、莲花落为边，是东北深受喜爱的民间曲艺，唱腔粗犷活泼。"},
- {q:"北方年俗中，除夕夜守岁又称什么？",opts:["照虚耗","逛灯会","踏青","迎财神"],ans:0,k:"守岁在古代又称照虚耗，点灯烛通宵不灭，象征把邪瘟病疫照跑，迎接新的一年。"},
- {q:"北方传统春节，年夜饭常吃哪种面食承载吉祥寓意？",opts:["饺子","窝头","馒头","烧饼"],ans:0,k:"除夕吃饺子讲究寓意，北方还有隔年饭习俗，象征年年有余、吉祥如意。"},
- {q:"东北秧歌起源于什么？",opts:["稻作生产","游牧狩猎","宫廷舞蹈","宗教祭祀"],ans:0,k:"东北秧歌起源于稻作生产，表演内容丰富，由此孕育出独特的步式和唱腔，展现民族气质。"},
- {q:"以下哪一项最能代表北方冬季的冰雪民俗？",opts:["冰灯冰雕","赏花市","赛龙舟","放河灯"],ans:0,k:"冰灯冰雕是北方冬季代表性民俗艺术，哈尔滨冰灯驰名中外，与南方花市形成鲜明对比。"}
+var QUESTIONS=[
+{q:"北方冬季最具代表性的民俗食品是哪一项？",options:["饺子","凉粉","糍粑","汤圆"],ans:0,tip:"北方素有\u201c冬至不端饺子碗，冻掉耳朵没人管\u201d之说，饺子是北方冬日与节庆的重要民俗食品。"},
+{q:"\u201c东北三大怪\u201d中不包括以下哪一项？",options:["窗户纸糊在外","大姑娘叼烟袋","养个孩子吊起来","火盆沿上烙干粮"],ans:3,tip:"通常说法为\u201c窗户纸糊在外、大姑娘叼烟袋、养个孩子吊起来\u201d三种怪象。"},
+{q:"北方民间称腊月二十三为？",options:["小年","元宵","破五","龙抬头"],ans:0,tip:"腊月二十三日为祭灶日，俗称小年，北方多在此时扫尘、送灶王爷上天。"},
+{q:"除夕守岁时，北方许多家庭会一起做哪件事？",options:["包饺子","赏花灯","赛龙舟","登高插茱萸"],ans:0,tip:"北方除夕之夜的\u201c更岁交子\u201d，多以全家一起包饺子、吃饺子来辞旧迎新。"},
+{q:"\u201c二月二，龙抬头\u201d时北方常有什么习俗？",options:["剃头（理发）","吃粽子","插艾草","喝雄黄酒"],ans:0,tip:"民间认为二月二理发可讨\u201c龙抬头\u201d的好彩头，故称剃龙头。"},
+{q:"下列哪项是北方过大年时常见的装饰？",options:["贴窗花与春联","挂菖蒲艾叶","点孔明灯","摆南瓜灯"],ans:0,tip:"北方年俗重门面装饰，新春贴春联、剪窗花、倒贴福字极为普遍。"},
+{q:"北方庙会中常出现的传统表演是？",options:["高跷与秧歌","孔雀舞","芦笙舞","锅庄舞"],ans:0,tip:"踩高跷、扭秧歌是北方庙会与社火中富有代表性的民间表演。"},
+{q:"\u201c九九消寒图\u201d在北方寒冬主要用来？",options:["计算冬尽春来的日子","占卜天气播报","记录每日饮食","练习书法入门"],ans:0,tip:"从冬至起以消寒图每日涂一笔，共九九八十一天，用以期盼寒冬结束。"},
+{q:"北方冬季\u201c冻梨\u201d的正确吃法是？",options:["先将梨冻硬再吃","趁热蘸糖吃","煮熟后放凉吃","油炸之后吃"],ans:0,tip:"冻梨须先冻透，食用前置于凉水中\u201c缓\u201d出冰壳后变软即可食用，是东北冬日特色。"},
+{q:"北方正月十五元宵节最具代表性的食物是？",options:["元宵","青团","月饼","粽子"],ans:0,tip:"北方多称\u201c元宵\u201d，将馅料滚成球状；南方多称\u201c汤圆\u201d，为包制。"},
+{q:"\u201c贴倒福\u201d在北方民俗中的寓意是？",options:["福到了","防寒保暖","招财进宝","团圆美满"],ans:0,tip:"以\u201c倒\u201d谐音\u201c到\u201d，北方贴倒福取\u201c福到了\u201d的吉利口彩。"},
+{q:"北方\u201c豆包\u201d\u201c粘豆包\u201d\u201c萨其马\u201d等甜食，多与哪个季节相关？",options:["冬季年节","盛夏消暑","仲春踏青","金秋赏月"],ans:0,tip:"粘豆包、萨其马等常为北方农家冬季备置、过年食用的传统食品。"},
+{q:"北方民谚\u201c三九四九，棒打不走\u201d指的是？",options:["天气极冷，人冻得不愿外出","农人耕作不休","燕子南飞","冰雪消融"],ans:0,tip:"三九四九为一年中最冷时段，民谚形容天寒地冻、少人出门。"},
+{q:"北方\u201c杀年猪\u201d习俗多发生在什么时间？",options:["腊月前后","清明前后","仲秋","入伏"],ans:0,tip:"旧时北方农家多在腊月宰杀筹备年猪，为过年备下肉菜并请乡邻吃\u201c杀猪菜\u201d。"},
+{q:"\u201c腊七腊八，冻掉下巴\u201d中北方腊八的食俗是？",options:["喝腊八粥","吃月饼","饮屠苏酒","食青团"],ans:0,tip:"腊八节北方多熬腊八粥以御寒，也供佛、祭祀并分赠邻里。"},
+{q:"北方冬季取暖的旧时民俗器具是？",options:["火炕与火盆","竹凉席","吊脚楼火塘","吊扇"],ans:0,tip:"火炕、火盆是北方传统的御寒取暖民俗器具。"},
+{q:"\u201c过了腊八就是年\u201d说明进入腊八后北方百姓？",options:["开始张罗过年准备","停止劳作冬眠","陆续返乡扫墓","开始春耕"],ans:0,tip:"腊八后年味渐浓，民间开始置办年货、扫尘备年。"},
+{q:"北方正月里\u201c秧歌\u201d\u201c二人转\u201d等多为哪种场合表演？",options:["社火、庙会与正月酬神游乐","祭祖扫墓","婚嫁仪仗","丧葬祭祀"],ans:0,tip:"秧歌、二人转等常活跃于正月社火、庙会等节庆游乐场合。"},
+{q:"北方\u201c春饼\u201d在立春时节吃，其寓意是？",options:["迎春尝新","纪念秋收","祭拜灶神","祈求多子"],ans:0,tip:"立春吃春饼、咬春，寓意迎接新春、尝得时鲜。"},
+{q:"北方民俗整体上最重视下列哪一方面？",options:["时令节序与传统节庆","只看西方节庆","不重节气只重月圆","与天时无关"],ans:0,tip:"北方民俗整体重时令节序，与二十四节气、传统节庆紧密相连。"}
 ];
-const GIFTS={400:"🏮 金玉满堂，福寿康宁，愿你岁岁常安。",300:"🌸 家和万事兴，喜乐常相伴。",200:"☀ 心怀乡土，行稳致远。",100:"🍵 平淡是真，亦有清欢。",40:"🌿 传统文化之海，期待你继续探索。",0:"🍃 白山黑水间，还有许多故事等你读懂。"};
-let score=0, idx=0, answered=false, wrongIdx=[];
-
-/* 音效 */
-let soundOn=true;
-function beep(type){
-  if(!soundOn)return;
-  const ctx=new (window.AudioContext||window.webkitAudioContext)();
-  const o=ctx.createOscillator(),g=ctx.createGain();o.connect(g);g.connect(ctx.destination);
-  if(type==='right'){o.type='sine';o.frequency.value=660;g.gain.value=.18;o.start();setTimeout(()=>{o.frequency.setValueAtTime(880,ctx.currentTime+.12);},110);setTimeout(()=>o.stop(),260);}
-  else if(type==='wrong'){o.type='square';o.frequency.value=220;g.gain.value=.12;o.start();setTimeout(()=>o.stop(),220);}
-  else if(type==='finish'){const f=[523,659,784];f.forEach((n,i)=>{setTimeout(()=>{const o2=ctx.createOscillator(),g2=ctx.createGain();o2.connect(g2);g2.connect(ctx.destination);o2.frequency.value=n;g2.gain.value=.18;o2.start();o2.stop(ctx.currentTime+.25);},i*170);});}
-}
-function toggleSound(){soundOn=!soundOn;document.getElementById('soundBtn').textContent=soundOn?'🔊 音效开':'🔇 音效关';}
-
-/* 页面 */
-function showPage(id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');}
-function switchTab(t){
-  document.getElementById('tabPlay').classList.toggle('active',t==='play');
-  document.getElementById('tabKnow').classList.toggle('active',t==='know');
-  document.getElementById('panelPlay').style.display=t==='play'?'block':'none';
-  document.getElementById('panelKnow').style.display=t==='know'?'block':'none';
-}
-document.getElementById('panelPlay').style.display='block';document.getElementById('panelKnow').style.display='none';
-
-/* 加载 */
-let loadProgress=0;
-(function loadAnim(){
-  const steps=["正在布置灯笼…","正在挂上红绸…","正在点燃烛火…","正在铺开风情画卷…"],tips=["🏮","🧧","🏮","🧧"];
-  const bar=document.getElementById('progressBar'),tip=document.getElementById('loadTip');
-  loadProgress+=Math.random()*22+8;
-  if(loadProgress>=100){loadProgress=100;bar.style.width='100%';setTimeout(()=>showPage('welcome'),350);return;}
-  bar.style.width=loadProgress+'%';
-  tip.textContent=steps[Math.floor(loadProgress/25)%steps.length]+" "+tips[Math.floor(loadProgress/25)%tips.length];
-  setTimeout(loadAnim,240+Math.random()*220);
-})();
-
-/* 答题：答一题锁定一题，天然不重复作答 */
-function initQuiz(){score=0;idx=0;answered=false;wrongIdx=[];renderQ();}
-function renderQ(){
-  const q=QUESTIONS[idx];
-  document.getElementById('qMeta').textContent="第 "+(idx+1)+" 题 / 共 20 题 · 当前得分 "+score;
-  document.getElementById('qText').textContent=q.q;
-  const box=document.getElementById('options');box.innerHTML='';
-  document.getElementById('feedback').textContent='';document.getElementById('knowBox').innerHTML='';
-  document.getElementById('nextBtn').style.display='none';document.getElementById('finishBtn').style.display='none';
-  q.opts.forEach((o,i)=>{
-    const b=document.createElement('button');b.className='opt';b.textContent=o;
-    b.onclick=()=>{if(answered)return;answered=true;const opts=document.querySelectorAll('.opt');
-      if(i===q.ans){b.classList.add('correct');score+=20;document.getElementById('feedback').textContent='✅ 回答正确！';document.getElementById('feedback').style.color='#5aaa4d';beep('right');}
-      else{b.classList.add('wrong');opts[q.ans].classList.add('correct');wrongIdx.push(idx);document.getElementById('feedback').textContent='❌ 很遗憾，答错了';document.getElementById('feedback').style.color='var(--red)';beep('wrong');}
-      opts.forEach(x=>x.disabled=true);
-      document.getElementById('knowBox').innerHTML='<div class="knowledge show"><h4>民俗小知识</h4>'+q.k+'</div>';
-      document.getElementById('qMeta').textContent="第 "+(idx+1)+" 题 / 共 20 题 · 当前得分 "+score;
-      if(idx<QUESTIONS.length-1)document.getElementById('nextBtn').style.display='inline-block';
-      else document.getElementById('finishBtn').style.display='inline-block';
-    };
-    box.appendChild(b);
-  });
-}
-function nextQ(){idx++;answered=false;renderQ();}
-function resetQuiz(){score=0;idx=0;answered=false;wrongIdx=[];showPage('welcome');}
-
-/* 结束 + 错题回顾 */
-function toEnd(){
-  showPage('end');
-  const el=document.getElementById('finalScore'),target=score;let cur=0;
-  const step=Math.max(1,Math.ceil(target/40));
-  (function tick(){cur+=step;if(cur>=target){cur=target;el.textContent=cur;}else{el.textContent=cur;setTimeout(tick,20);}})();
-  document.getElementById('verdict').textContent=score>=320?'⛄ 北方民俗达人，博通古今！':score>=200?'📖 颇有涉猎，已具慧眼！':score>=80?'🌱 传统风情，等你靠近':'❄️ 白山黑水待你探索';
-  document.getElementById('gift').textContent='🎁 民俗祝福：'+GIFTS[score];
-  const list=document.getElementById('mistakeList');
-  if(wrongIdx.length>0){
-    document.getElementById('mistakeTitle').style.display='block';list.innerHTML='';
-    wrongIdx.forEach(wi=>{const q=QUESTIONS[wi];const div=document.createElement('div');div.className='mis';
-      div.innerHTML='<div class="mq">'+(wi+1)+'. '+q.q+'</div><div class="my">✓ 正确答案：'+q.opts[q.ans]+'</div><div class="mo">💡 '+q.k+'</div>';list.appendChild(div);});
-  }else{document.getElementById('mistakeTitle').style.display='none';list.innerHTML='';}
-  beep('finish');
-}
-
-/* 白雪粒子 */
-const cv=document.getElementById('particles'),cx=cv.getContext('2d');let W,H,parts=[];
-function size(){W=cv.width=innerWidth;H=cv.height=innerHeight;}size();addEventListener('resize',size);
-for(let i=0;i<60;i++){parts.push({x:Math.random()*W,y:Math.random()*H,r:Math.random()*3+1,sy:Math.random()*.5+.15,sx:(Math.random()-.5)*.3,o:Math.random()*.6+.3,c:Math.random()>.4?'rgba(240,235,225,':'rgba(232,180,76,'});}
-(function draw(){cx.clearRect(0,0,W,H);
-  for(const p of parts){p.y-=p.sy;p.x+=p.sx;if(p.y<-8){p.y=H+8;p.x=Math.random()*W;}
-    cx.beginPath();cx.arc(p.x,p.y,p.r,0,7);cx.fillStyle=p.c+p.o+')';cx.fill();}
-  requestAnimationFrame(draw);})();
+var idx=0,score=0,shown=false,bmarks=new Set(),review=[],answered=false;
+var snow=document.getElementById('snow');
+(function(){var n=70;for(var i=0;i<n;i++){var s=document.createElement('span');
+s.style.cssText="position:absolute;top:-20px;left:"+(Math.random()*100)+"%;width:"+(3+Math.random()*5)+"px;height:"+(3+Math.random()*5)+"px;background:rgba(255,255,255,.8);border-radius:50%;opacity:"+(.3+Math.random()*.6)+";animation:fall "+(8+Math.random()*10)+"s linear "+(Math.random()*10)+"s infinite;";
+snow.appendChild(s);}var st=document.createElement('style');st.textContent="@keyframes fall{to{transform:translateY(110vh) translateX(20px);}}";document.head.appendChild(st);})();
+function beep(freq,dur,delay,type){var c=new (window.AudioContext||window.webkitAudioContext)();var o=c.createOscillator(),g=c.createGain();o.type=type||"sine";o.frequency.value=freq;o.connect(g);g.connect(c.destination);var t=c.currentTime+(delay||0);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.18,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.start(t);o.stop(t+dur);setTimeout(function(){c.close();},dur*1000+300);}
+function ok(){beep(523.25,.14,0);beep(659.25,.14,.1);beep(783.99,.22,.2);}
+function no(){beep(220,.22,0,"sawtooth");beep(174,.28,.14,"sawtooth");}
+var ringFg=document.getElementById('ringFg'),ringTxt=document.getElementById('ringTxt');
+function updateRing(){var p=idx*100/20;var off=157-(157*p/100);ringFg.style.strokeDashoffset=off;ringTxt.textContent=idx;}
+function render(){var qu=QUESTIONS[idx];answered=false;
+document.getElementById('badge').textContent='第 '+(idx+1)+' 题';
+document.getElementById('qNum').textContent='第 '+(idx+1)+' / 20 题';
+document.getElementById('qText').textContent=qu.q;
+var box=document.getElementById('options');box.innerHTML='';var marks=['一','二','三','四'];
+qu.options.forEach(function(op,o){var d=document.createElement('div');d.className='opt';
+d.innerHTML='<span class="mark">'+marks[o]+'</span>'+op;
+d.onclick=function(){if(answered)return;answered=true;shown=false;
+var correct=(o===qu.ans);
+if(correct){score++;ok();d.classList.add('correct');}
+else{no();d.classList.add('wrong');d.innerHTML='<span class="mark">✕</span>'+op;box.children[qu.ans].classList.add('correct');review.push({q:qu.q,you:op,right:qu.options[qu.ans],tip:qu.tip});}
+document.getElementById('nextBtn').disabled=false;};
+box.appendChild(d);});
+document.getElementById('nextBtn').disabled=true;
+document.getElementById('bookmark').classList.toggle('on',bmarks.has(idx));
+document.getElementById('bookmark').textContent=bmarks.has(idx)?'★ 已收藏':'♡ 收藏此题';
+updateRing();}
+function startQuiz(){document.getElementById('poster').classList.add('hidden');document.getElementById('quizPanel').classList.remove('hidden');render();}
+document.getElementById('startBtn').onclick=function(){startQuiz();};
+document.getElementById('startDirectBtn').onclick=function(){startQuiz();};
+document.getElementById('bookmark').onclick=function(){if(bmarks.has(idx))bmarks.delete(idx);else bmarks.add(idx);document.getElementById('bookmark').classList.toggle('on');document.getElementById('bookmark').textContent=bmarks.has(idx)?'★ 已收藏':'♡ 收藏此题';};
+document.getElementById('nextBtn').onclick=function(){idx++;answered=false;if(idx>=20){showResult();}else{render();}};
+function showResult(){document.getElementById('quizPanel').classList.add('hidden');document.getElementById('resultPanel').classList.remove('hidden');
+var s=score*5;var medal=document.getElementById('medal');medal.textContent=s>=85?'🏆':s>=60?'🏮':s>=40?'🕯️':'❄️';
+document.getElementById('score').innerHTML=s+'<small> / 100</small>';
+var grade,comment;
+if(s>=85){grade='甲 上 · 民俗通';comment='渥闻博识，深谙北地岁时风物，堪称民俗行家！';}
+else if(s>=60){grade='甲 等 · 及第';comment='对北方民俗了然于心，已具大家气象，再接再厉。';}
+else if(s>=40){grade='乙 等 · 可观';comment='尚有几处疏漏，多加留心节令习俗，必有所成。';}
+else{grade='丙 等 · 勤学';comment='初涉其中不以为拙，勤加温习，来日可期。';}
+document.getElementById('grade').textContent=grade;document.getElementById('comment').textContent=comment;
+document.getElementById('gradeTitle').textContent=review.length?'放 榜 · 卷后温故':'放 榜';
+setTimeout(function(){document.getElementById('barFill').style.width=(s)+'%';},100);
+var rb=document.getElementById('reviewBox');
+if(review.length){rb.innerHTML='<h3>错 题 温 故</h3>'+review.map(function(r){return '<div class="card"><div class="q">'+r.q+'</div><div class="you">君答：'+r.you+'</div><div class="right">正解：'+r.right+'</div><div class="tip">'+r.tip+'</div></div>';}).join('');}else{rb.innerHTML='';}}
+document.getElementById('restartBtn').onclick=function(){idx=0;score=0;review=[];bmarks=new Set();document.getElementById('resultPanel').classList.add('hidden');document.getElementById('poster').classList.remove('hidden');};
 </script>
 </body>
 </html>
