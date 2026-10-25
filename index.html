@@ -58,6 +58,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
 .quiz{background:rgba(247,241,227,.88);border:1px solid var(--line);border-radius:16px;
   box-shadow:0 22px 60px rgba(58,46,36,.14);backdrop-filter:blur(4px);
   padding:34px 30px 30px;animation:fadein .6s both;}
+.knowledge{background:rgba(247,241,227,.92);border:1px solid var(--line);border-radius:16px;
+  box-shadow:0 22px 60px rgba(58,46,36,.14);padding:34px 30px;animation:fadein .6s both;}
+.knowledge h2{font-size:28px;letter-spacing:.2em;color:var(--cinnabar-deep);text-align:center;margin-bottom:6px;}
+.knowledge .k-sub{font-size:14px;letter-spacing:.3em;color:var(--jade);text-align:center;margin-bottom:22px;}
+.knowledge .k-item{background:#fffdf6;border-left:4px solid var(--gold);border-radius:10px;padding:14px 18px;margin-bottom:12px;box-shadow:0 4px 14px rgba(58,46,36,.06);}
+.knowledge .k-item b{color:var(--cinnabar-deep);letter-spacing:.06em;}
+.knowledge .k-item p{font-size:15px;color:var(--ink);line-height:1.7;margin-top:4px;}
+.knowledge .k-go{margin:26px auto 0;display:block;}
 @keyframes fadein{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:none;}}
 .topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;}
 .badge{font-size:13px;letter-spacing:.2em;color:var(--jade);border:1px solid rgba(61,107,90,.35);padding:6px 14px;border-radius:30px;}
@@ -128,6 +136,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
     <button class="btn" style="margin:0;background:linear-gradient(135deg,var(--jade),#2c5144);" id="startDirectBtn">直 接 开 卷</button>
   </div>
 </div>
+<div class="panel hidden" id="knowledgePanel">
+  <div class="knowledge">
+    <h2>北 方 民 俗 要 览</h2>
+    <div class="k-sub">先读再考 · 了然于心</div>
+    <div id="knowledgeItems"></div>
+    <button class="btn k-go" id="knowledgeGoBtn">学 罢 开 卷 →</button>
+  </div>
+</div>
 <div class="panel hidden" id="quizPanel">
   <div class="quiz">
     <div class="topbar">
@@ -183,6 +199,13 @@ var QUESTIONS=[
 {q:"北方\u201c春饼\u201d在立春时节吃，其寓意是？",options:["迎春尝新","纪念秋收","祭拜灶神","祈求多子"],ans:0,tip:"立春吃春饼、咬春，寓意迎接新春、尝得时鲜。"},
 {q:"北方民俗整体上最重视下列哪一方面？",options:["时令节序与传统节庆","只看西方节庆","不重节气只重月圆","与天时无关"],ans:0,tip:"北方民俗整体重时令节序，与二十四节气、传统节庆紧密相连。"}
 ];
+var KNOWLEDGE=[
+{t:"一、时令节序",c:"北方民俗与二十四节气、传统节庆紧密相连。腊月二十三祭灶称小年；腊八喝腊八粥\u201c冻掉下巴\u201d；腊八后\u201c过了腊八就是年\u201d，开始置办年货扫尘备年；立春吃春饼\u201c咬春\u201d迎春尝新；二月二\u201c龙抬头\u201d理发讨彩头。"},
+{t:"二、年俗食俗",c:"元宵节北方滚\u201c元宵\u201d、南方包\u201c汤圆\u201d。除夕\u201c更岁交子\u201d，全家包饺子辞旧迎新；冬至有\u201c冬至不端饺子碗，冻掉耳朵没人管\u201d之说。粘豆包、萨其马等多为农家冬季备置、过年食用；腊月\u201c杀年猪\u201d为过年备肉请邻里吃杀猪菜。"},
+{t:"三、冬日民俗器具",c:"火炕、火盆是北方传统御寒取暖民俗器具。\u201c三九四九，棒打不走\u201d形容一年最冷时段天寒地冻少人出门。\u201c九九消寒图\u201d自冬至起每日涂一笔，共九九八十一天，用以期盼寒冬结束。"},
+{t:"四、东北特色",c:"\u201c东北三大怪\u201d指\u201c窗户纸糊在外、大姑娘叼烟袋、养个孩子吊起来\u201d。冻梨须先冻透，食用前置于凉水中\u201c缓\u201d出冰壳变软再吃。"},
+{t:"五、年俗装饰与表演",c:"北方年俗重门面，新春贴春联、剪窗花、倒贴福字极为普遍，\u201c倒福\u201d谐音\u201c福到了\u201d。正月社火、庙会常表演踩高跷、扭秧歌、二人转等。"}
+];
 var idx=0,score=0,shown=false,bmarks=new Set(),review=[],answered=false;
 var snow=document.getElementById('snow');
 (function(){var n=70;for(var i=0;i<n;i++){var s=document.createElement('span');
@@ -210,9 +233,14 @@ document.getElementById('nextBtn').disabled=true;
 document.getElementById('bookmark').classList.toggle('on',bmarks.has(idx));
 document.getElementById('bookmark').textContent=bmarks.has(idx)?'★ 已收藏':'♡ 收藏此题';
 updateRing();}
-function startQuiz(){document.getElementById('poster').classList.add('hidden');document.getElementById('quizPanel').classList.remove('hidden');render();}
-document.getElementById('startBtn').onclick=function(){startQuiz();};
+function startQuiz(){document.getElementById('poster').classList.add('hidden');document.getElementById('knowledgePanel').classList.add('hidden');document.getElementById('quizPanel').classList.remove('hidden');render();}
+function showKnowledge(){document.getElementById('poster').classList.add('hidden');
+var box=document.getElementById('knowledgeItems');box.innerHTML='';
+KNOWLEDGE.forEach(function(k){box.innerHTML+='<div class="k-item"><b>'+k.t+'</b><p>'+k.c+'</p></div>';});
+document.getElementById('knowledgePanel').classList.remove('hidden');}
+document.getElementById('startBtn').onclick=function(){showKnowledge();};
 document.getElementById('startDirectBtn').onclick=function(){startQuiz();};
+document.getElementById('knowledgeGoBtn').onclick=function(){startQuiz();};
 document.getElementById('bookmark').onclick=function(){if(bmarks.has(idx))bmarks.delete(idx);else bmarks.add(idx);document.getElementById('bookmark').classList.toggle('on');document.getElementById('bookmark').textContent=bmarks.has(idx)?'★ 已收藏':'♡ 收藏此题';};
 document.getElementById('nextBtn').onclick=function(){idx++;answered=false;if(idx>=20){showResult();}else{render();}};
 function showResult(){document.getElementById('quizPanel').classList.add('hidden');document.getElementById('resultPanel').classList.remove('hidden');
