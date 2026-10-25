@@ -1,509 +1,636 @@
 <!DOCTYPE html>
- <html lang="zh-CN">
- <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
- <title>北方传统民俗H5-640:1008</title>
- <style>
- *{
-     margin:0;
-     padding:0;
-     box-sizing:border-box;
-     font-family:"Microsoft YaHei",serif;
- }
- html,body{
-     width:100%;
-     height:100%;
-     overflow:hidden;
-     background:#fff8ee;
- }
- /* 视口容器，占满整个设备屏幕 */
- #viewport{
-    width:100vw;
-    height:100vh;
-    position:relative;
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>北方传统民俗H5-640:1008</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Microsoft YaHei",serif;
+}
+html,body{
+    width:100%;
+    height:100%;
     overflow:hidden;
     background:#fff8ee;
- }
- /* 设计稿画布，固定原始尺寸 640*1008，改为中心缩放 */
- #designCanvas{
-     width:640px;
-     height:1008px;
-     position:absolute;
-     overflow:hidden;
-     background:#fff8ee;
-     transform-origin: center center;
- }
- .page{
-     width:640px;
-     height:1008px;
-     position:absolute;
-     top:0;
-     left:0;
-     padding:24px 16px;
-     display:flex;
-     flex-direction:column;
-     justify-content:center;
-     transition:transform 0.8s ease;
-     transform:translateX(100%);
-     background-size:100% 100%;
-     background-repeat:no-repeat;
- }
- .page.active{
-     transform:translateX(0);
- }
- #p1{background-image:url("p1.jpg");}
- #p2{background-image:url("p2.jpg");}
- #p3{background-image:url("p3.jpg");}
- #p4{background-image:url("p4.jpg");}
- #p5{background-image:url("p5.jpg");}
- #p6{background-image:url("p6.jpg");}
- #p7{background-image:url("p7.jpg");}
- #p8{background-image:url("p8.jpg");}
- #p9{background-image:url("p9.jpg");}
- #p10{background-image:url("p9.jpg");}
- #p11{background-image:url("p1.jpg");}
- .scroll-box{
-     background:rgba(255,252,240,0.92);
-     border:2px solid #a88b68;
-     border-radius:12px;
-     box-shadow:0 4px 12px rgba(0,0,0,0.15);
-     padding:20px;
-     width:560px;
-     height:420px;
-     margin:0 auto;
-     overflow-y:auto;
- }
- .scroll-box h2{
-     font-size:24px;
-     margin-bottom:16px;
-     text-align:center;
-     color:#5c3c20;
- }
- .scroll-box p{
-     font-size:16px;
-     line-height:1.8;
-     margin:7px 0;
- }
- .load-page{
-     display:flex;
-     flex-direction:column;
-     align-items:center;
-     justify-content:center;
- }
- .load-title{
-     font-size:32px;
-     margin-bottom:12px;
- }
- .load-sub{
-     font-size:18px;
-     margin-bottom:40px;
- }
- .progress-wrap{
-     width:280px;
-     height:24px;
-     border:2px solid #8b5a2b;
-     border-radius:12px;
-     overflow:hidden;
-     background:#fff3e0;
- }
- .progress-bar{
-     height:100%;
-     width:0%;
-     background:#8b5a2b;
- }
- .progress-text{
-     margin-top:10px;
-     font-size:16px;
- }
- .btn-group{
-     margin-top:24px;
-     display:flex;
-     gap:10px;
-     justify-content:center;
-     flex-wrap:wrap;
- }
- button{
-     padding:9px 18px;
-     font-size:15px;
-     border:none;
-     border-radius:8px;
-     background:#8b5a2b;
-     color:#fff;
-     cursor:pointer;
- }
- .question-card{background:rgba(255,252,240,0.92);
-     border:2px solid #a88b68;
-     border-radius:12px;
-     box-shadow:0 4px 12px rgba(0,0,0,0.15);
-     padding:20px;
-     width:560px;
-     height:440px;
-     margin:0 auto;
-     overflow-y:auto;
- }
- .question-card h3{
-     font-size:19px;
-     margin-bottom:14px;
- }
- .opt{
-     padding:10px 14px;
-     margin:8px 0;
-     border:2px solid #c9a87c;
-     border-radius:8px;
-     cursor:pointer;
-     background:#fff;
- }
- .opt.selected{
-     background:#e8d5b5;
-     border-color:#8b4513;
- }
- .opt.right{
-     background:#2ecc71 !important;
-     color:#fff;
-     border-color:#27ae60;
- }
- .opt.wrong{
-     background:#e74c3c !important;
-     color:#fff;
-     border-color:#c0392b;
- }
- .opt.locked{
-     pointer-events:none;
- }
- .answer-text{
-     color:#c82423;
-     display:none;
-     margin-top:14px;
-     font-size:17px;
-     font-weight:bold;
- }
- #scorePanel{
-     position:absolute;
-     top:16px;
-     left:16px;
-     z-index:9999;
-     background:#8b4513;
-     color:#fff;
-     padding:6px 12px;
-     border-radius:8px;
-     font-size:18px;
- }
- </style>
- </head>
- <body>
- <div id="viewport">
-     <div id="designCanvas">
-         <div id="scorePanel">得分：0</div>
-         <!-- P1 加载页 -->
-         <div class="page load-page active" id="p1">
-             <h1 class="load-title">北方冷门传统民俗</h1>
-             <p class="load-sub">那些渐渐失传的老规矩</p>
-             <div class="progress-wrap">
-                 <div class="progress-bar" id="bar"></div>
-             </div>
-             <div class="progress-text" id="loadText">已加载 0%</div>
-         </div>
-         <!-- P2 -->
-         <div class="page" id="p2">
-             <div class="scroll-box">
-                 <h2>岁时节令·传统古俗</h2>
-                 <p>✅正月初一：忌喝粥，食干食</p>
-                 <p>✅正月初三：赤狗日，不串门宴请</p>
-                 <p>✅正月初六：送穷神大扫除</p>
-                 <p>✅正月十二：捏面灯，捏老鼠嘴</p>
-                 <p>✅正月二十五填仓节：忌倒垃圾、忌睡懒觉</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goNext()">下一页</button>
-             </div>
-         </div>
-         <!-- P3 -->
-         <div class="page" id="p3">
-             <div class="scroll-box">
-                 <h2>岁时节令·传统古俗（续）</h2>
-                 <p>✅立春：躲春，交节时刻不吵架不见生人</p>
-                 <p>✅二月二：禁针线剪刀，不扎龙眼</p>
-                 <p>✅寒食节：禁火吃冷食祭祖</p>
-                 <p>✅六月六：晒红绿，晒衣物家谱字画</p>
-                 <p>✅七夕：不祈福求财</p>
-                 <p>✅立秋啃秋，立秋后不食瓜</p>
-                 <p>✅十月一送寒衣：傍晚祭祀，不白日烧</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button onclick="goNext()">下一页</button>
-             </div>
-         </div>
-         <!-- P4 -->
-         <div class="page" id="p4">
-             <div class="scroll-box">
-                 <h2>居家生活老规矩</h2>
-                 <p>🌙夜晚不扫地、不拍枕、不抖被</p>
-                 <p>🪞镜子不对门不对床</p>
-                 <p>🏠新屋入宅：必须开火做甜食，外卖不算</p>
-                 <p>🧨腊月打碎器物要说“岁岁平安”</p>
-                 <p>🧹门口不要堆放扫把</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button onclick="goNext()">下一页</button>
-             </div>
-         </div>
-         <!-- P5 -->
-         <div class="page" id="p5">
-             <div class="scroll-box">
-                 <h2>餐桌正统礼俗</h2>
-                 <p>🍶酒满敬人，茶满欺人，茶水七分满</p>
-                 <p>🥘宴席菜品必为双数，单数用于祭祀</p>
-                 <p>🐟年夜饭鱼留尾，连年有余</p>
-                 <p>🥣吃饭不许扣碗</p>
-                 <p>🥢筷子严禁直插米饭（忌上香）</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button onclick="goNext()">下一页</button>
-             </div>
-         </div>
-         <!-- P6 -->
-         <div class="page" id="p6">
-             <div class="scroll-box">
-                 <h2>婚嫁冷门习俗</h2>
-                 <p>👰新娘鞋藏硬币，随身带财</p>
-                 <p>👣新娘脚不沾外土，红毯/人抱进门</p>
-                 <p>📅嫁娶避开晦日：三七、腊月、月末绝日</p>
-                 <p>🏮新婚三日不扫地，不扫新婚喜气</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button onclick="goNext()">下一页</button>
-             </div>
-         </div>
-         <!-- P7 -->
-         <div class="page" id="p7">
-             <div class="scroll-box">
-                 <h2>走亲访友禁忌</h2>
-                 <p>🚶初一不宜出远门</p>
-                 <p>🏥探病最佳：上午，忌下午晚上探望</p>
-                 <p>🎁送礼三忌：不送钟表、不送伞、不送鞋</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button onclick="goNext()">下一页</button>
-             </div>
-         </div>
- <!-- P8 -->
-         <div class="page" id="p8">
-             <div class="scroll-box">
-                 <h2>东北独有民俗</h2>
-                 <p>❄️腊月冻财：冻梨、冻柿子，冻结财富不散</p>
-                 <p>🧊过年窗台摆放冰水，寓意水清财净</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button onclick="goNext()">进入答题</button>
-             </div>
-         </div>
-         <!-- P9 单选 -->
-         <div class="page" id="p9">
-             <div class="question-card">
-                 <h3>单选题：北方“填仓节”是农历哪天？</h3>
-                 <div class="opt" data-idx="0">A.正月二十</div>
-                 <div class="opt" data-idx="1">B.正月二十二</div>
-                 <div class="opt" data-idx="2">C.正月二十五</div>
-                 <div class="opt" data-idx="3">D.正月二十八</div>
-                 <p class="answer-text" id="ans1">答案：C</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button id="submitP9">提交答案</button>
-                 <button onclick="goNext()">下一题</button>
-             </div>
-         </div>
-         <!-- P10 多选 -->
-         <div class="page" id="p10">
-             <div class="question-card">
-                 <h3>多选题：北方填仓节禁忌行为有？</h3>
-                 <div class="opt" data-idx="0">A.向外倒垃圾</div>
-                 <div class="opt" data-idx="1">B.借钱外出</div>
-                 <div class="opt" data-idx="2">C.存粮食</div>
-                 <div class="opt" data-idx="3">D.睡懒觉</div>
-                 <p class="answer-text" id="ans2">答案：ABD</p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goPrev()">上一页</button>
-                 <button id="submitP10">提交答案</button>
-                 <button onclick="goNext()">结束页</button>
-             </div>
-         </div>
-         <!-- P11 结束页 -->
-         <div class="page" id="p11">
-             <div class="scroll-box">
-                 <h2>北方传统民俗</h2>
-                 <p style="text-align:center;font-size:20px;margin-top:10px">传承老规矩，留住旧时记忆</p>
-                 <p style="text-align:center;font-size:18px;margin-top:10px">感谢浏览</p>
-                 <p style="text-align:center;font-size:22px;margin-top:30px;color:#c82423;font-weight:bold;" id="finalScoreShow"></p>
-             </div>
-             <div class="btn-group">
-                 <button onclick="goBackHome()">返回首页</button>
-             </div>
-         </div>
-     </div>
- </div>
-  <script>
- const pages = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11"];
- let currentIndex = 0;
- let loadTimer = null;
- const SCORE_PER = 5;
- let totalScore = 0;
- const designCanvas = document.getElementById("designCanvas");
- const scorePanel = document.getElementById("scorePanel");
- const finalScoreShow = document.getElementById("finalScoreShow");
- // resize防抖
- let resizeTimer = null;
- // ========== 核心缩放函数【已修改，中心居中缩放】 ==========
- function fitScale(){
-     const vw = window.innerWidth;
-     const vh = window.innerHeight;
-     // 设计稿原始宽高
-     const dw = 640;
-     const dh = 1008;
-     // 取最小缩放比，完整放进屏幕
-     const scale = Math.min(vw / dw, vh / dh);
-     designCanvas.style.left = "50%";
-     designCanvas.style.top = "50%";
-     designCanvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
- }
- // 防抖包装resize
- function onWindowResize(){
-     clearTimeout(resizeTimer);
-     resizeTimer = setTimeout(fitScale, 80);
- }
- window.addEventListener("resize", onWindowResize);
- window.addEventListener("orientationchange", onWindowResize);
- function updateScoreUI(){
-     scorePanel.innerText = "得分：" + totalScore;
- }
- // ========== 加载进度条 ==========
- function startLoading(){
-     // 先清掉旧定时器，防止重复卡死！！！
-     if(loadTimer) clearInterval(loadTimer);
-     const bar = document.getElementById("bar");
-     const loadText = document.getElementById("loadText");
-     let progress = 0;
-     bar.style.width = "0%";
-     loadText.innerText = "已加载 0%";
-     loadTimer = setInterval(function(){
-         progress += 1;
-         bar.style.width = progress + "%";
-         loadText.innerText = "已加载 " + progress + "%";
-         if(progress >= 100){
-             clearInterval(loadTimer);
-             goNext();
-         }
-     }, 45);
- }
- // ========== 翻页 ==========
- window.goNext = function(){
-     if(currentIndex >= pages.length -1) return;
-     document.getElementById(pages[currentIndex]).classList.remove("active");
-     currentIndex++;
-     document.getElementById(pages[currentIndex]).classList.add("active");
-     if(pages[currentIndex]==="p11"){
-         finalScoreShow.innerText = "本次答题总分：" + totalScore + " 分";
-     }
- }
- window.goPrev = function(){
-     if(currentIndex <=0) return;
-     document.getElementById(pages[currentIndex]).classList.remove("active");
-     currentIndex--;
-     document.getElementById(pages[currentIndex]).classList.add("active");
- }
- window.goBackHome = function(){
-     if(loadTimer) clearInterval(loadTimer);
-     pages.forEach(id=>document.getElementById(id).classList.remove("active"));
-     document.getElementById("ans1").style.display="none";
-     document.getElementById("ans2").style.display="none";
-     document.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected","right","wrong","locked"));
-     totalScore = 0;
-     updateScoreUI();
-     finalScoreShow.innerText = "";
-     currentIndex = 0;
-     document.getElementById(pages[0]).classList.add("active");
-     startLoading();
- }
- // P9 单选
- let p9Select = null;
- const p9Opts = document.querySelectorAll("#p9 .opt");
- p9Opts.forEach(opt=>{
-     opt.onclick = function(){
-         if(opt.classList.contains("locked")) return;
-         p9Opts.forEach(o=>o.classList.remove("selected"));
-         opt.classList.add("selected");
-         p9Select = Number(opt.dataset.idx);
-     }
- })
- document.getElementById("submitP9").onclick = function(){
-     if(p9Select === null){alert("请选择选项！");return;}
-     const correct = [2];
-     p9Opts.forEach(o=>{
-         o.classList.add("locked");
-         const idx = Number(o.dataset.idx);
-         if(correct.includes(idx)) o.classList.add("right");
-         if(p9Select === idx && !correct.includes(idx)) o.classList.add("wrong");
-     })
-  if(correct.includes(p9Select)){
-         totalScore += SCORE_PER;
-         updateScoreUI();
-     }
- }
- // P10多选
- let p10Select = [];
- const p10Opts = document.querySelectorAll("#p10 .opt");
- p10Opts.forEach(opt=>{
-     opt.onclick = function(){
-         if(opt.classList.contains("locked")) return;
-         const idx = Number(opt.dataset.idx);
-         if(p10Select.includes(idx)){
-             p10Select = p10Select.filter(i=>i!==idx);
-             opt.classList.remove("selected");
-         }else{
-             p10Select.push(idx);
-             opt.classList.add("selected");
-         }
-     }
- })
- document.getElementById("submitP10").onclick = function(){
-     if(p10Select.length === 0){alert("请选择至少一项！");return;}
-     const correct = [0,1,3];
-     const ok = p10Select.length === correct.length && p10Select.every(x=>correct.includes(x));
-     p10Opts.forEach(o=>{
-         o.classList.add("locked");
-         const idx = Number(o.dataset.idx);
-         if(correct.includes(idx)) o.classList.add("right");
-         if(p10Select.includes(idx) && !correct.includes(idx)) o.classList.add("wrong");
-     })
-     if(ok){
-         totalScore += SCORE_PER;
-         updateScoreUI();
-     }
- }
- // 背景音乐
- const bgMusic = new Audio("bgmusic.mp3");
- bgMusic.loop = true;
- bgMusic.volume = 0.3;
- let musicStarted = false;
- document.addEventListener("click",function(){
-     if(!musicStarted){
-         bgMusic.play().catch(err=>console.log("音乐播放失败",err));
-         musicStarted = true;
-     }
- })
- // 初始化
- fitScale();
- startLoading();
- updateScoreUI();
- </script>
- </body>
- </html>
- 
+}
+/* 视口容器，占满整个设备屏幕 */
+#viewport{
+   width:100vw;
+   height:100vh;
+   position:relative;
+   overflow:hidden;
+   background:#fff8ee;
+}
+/* 设计稿画布，固定原始尺寸 640*1008，改为中心缩放 */
+#designCanvas{
+    width:640px;
+    height:1008px;
+    position:absolute;
+    overflow:hidden;
+    background:#fff8ee;
+    transform-origin: center center;
+}
+.page{
+    width:640px;
+    height:1008px;
+    position:absolute;
+    top:0;
+    left:0;
+    padding:24px 16px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    transition:transform 0.8s ease;
+    transform:translateX(100%);
+    background-size:100% 100%;
+    background-repeat:no-repeat;
+}
+.page.active{
+    transform:translateX(0);
+}
+#p1{background-image:url("p1.jpg");}
+#p2{background-image:url("p2.jpg");}
+#p3{background-image:url("p3.jpg");}
+#p4{background-image:url("p4.jpg");}
+#p5{background-image:url("p5.jpg");}
+#p6{background-image:url("p6.jpg");}
+#p7{background-image:url("p7.jpg");}
+#p8{background-image:url("p8.jpg");}
+#p9{background-image:url("p9.jpg");}
+#p10{background-image:url("p9.jpg");}
+#p11{background-image:url("p1.jpg");}
+.scroll-box{
+    background:rgba(255,252,240,0.92);
+    border:2px solid #a88b68;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    padding:20px;
+    width:560px;
+    height:420px;
+    margin:0 auto;
+    overflow-y:auto;
+}
+.scroll-box h2{
+    font-size:24px;
+    margin-bottom:16px;
+    text-align:center;
+    color:#5c3c20;
+}
+.scroll-box p{
+    font-size:16px;
+    line-height:1.8;
+    margin:7px 0;
+}
+.load-page{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+}
+.load-title{
+    font-size:32px;
+    margin-bottom:12px;
+}
+.load-sub{
+    font-size:18px;
+    margin-bottom:40px;
+}
+.progress-wrap{
+    width:280px;
+    height:24px;
+    border:2px solid #8b5a2b;
+    border-radius:12px;
+    overflow:hidden;
+    background:#fff3e0;
+}
+.progress-bar{
+    height:100%;
+    width:0%;
+    background:#8b5a2b;
+}
+.progress-text{
+    margin-top:10px;
+    font-size:16px;
+}
+.btn-group{
+    margin-top:24px;
+    display:flex;
+    gap:10px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+button{
+    padding:9px 18px;
+    font-size:15px;
+    border:none;
+    border-radius:8px;
+    background:#8b5a2b;
+    color:#fff;
+    cursor:pointer;
+}
+.question-card{
+    background:rgba(255,252,240,0.92);
+    border:2px solid #a88b68;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    padding:20px;
+    width:560px;
+    height:440px;
+    margin:0 auto;
+    overflow-y:auto;
+}
+.question-card h3{
+    font-size:19px;
+    margin-bottom:14px;
+}
+.opt{
+    padding:10px 14px;
+    margin:8px 0;
+    border:2px solid #c9a87c;
+    border-radius:8px;
+    cursor:pointer;
+    background:#fff;
+}
+.opt.selected{
+    background:#e8d5b5;
+    border-color:#8b4513;
+}
+.opt.right{
+    background:#2ecc71 !important;
+    color:#fff;
+    border-color:#27ae60;
+}
+.opt.wrong{
+    background:#e74c3c !important;
+    color:#fff;
+    border-color:#c0392b;
+}
+.opt.locked{
+    pointer-events:none;
+}
+.answer-text{
+    color:#c82423;
+    display:none;
+    margin-top:14px;
+    font-size:17px;
+    font-weight:bold;
+}
+#scorePanel{
+    position:absolute;
+    top:16px;
+    left:16px;
+    z-index:9999;
+    background:#8b4513;
+    color:#fff;
+    padding:6px 12px;
+    border-radius:8px;
+    font-size:18px;
+}
+
+/* ========== 错题弹窗样式【新增】 ========== */
+#wrongModal{
+    position:fixed;
+    left:0;top:0;
+    width:100vw;height:100vh;
+    background:rgba(0,0,0,0.6);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:99999;
+}
+.modal-content{
+    width:540px;
+    max-height:80vh;
+    background:#fff8ee;
+    border:2px solid #a88b68;
+    border-radius:12px;
+    padding:20px;
+    overflow-y:auto;
+}
+.modal-content h3{
+    text-align:center;
+    color:#5c3c20;
+    margin-bottom:16px;
+    font-size:22px;
+}
+.wrong-item{
+    border-bottom:1px solid #d6c2a8;
+    padding:12px 0;
+}
+.wrong-item:last-child{
+    border-bottom:none;
+}
+.wrong-q{
+    font-weight:bold;
+    color:#5c3c20;
+    margin-bottom:6px;
+}
+.my-ans{
+    color:#e74c3c;
+}
+.right-ans{
+    color:#27ae60;
+}
+.modal-close{
+    margin-top:16px;
+    width:100%;
+}
+</style>
+</head>
+<body>
+<div id="viewport">
+    <div id="designCanvas">
+        <div id="scorePanel">得分：0</div>
+        <!-- P1 加载页 -->
+        <div class="page load-page active" id="p1">
+            <h1 class="load-title">北方冷门传统民俗</h1>
+            <p class="load-sub">那些渐渐失传的老规矩</p>
+            <div class="progress-wrap">
+                <div class="progress-bar" id="bar"></div>
+            </div>
+            <div class="progress-text" id="loadText">已加载 0%</div>
+        </div>
+        <!-- P2 -->
+        <div class="page" id="p2">
+            <div class="scroll-box">
+                <h2>岁时节令·传统古俗</h2>
+                <p>✅正月初一：忌喝粥，食干食</p>
+                <p>✅正月初三：赤狗日，不串门宴请</p>
+                <p>✅正月初六：送穷神大扫除</p>
+                <p>✅正月十二：捏面灯，捏老鼠嘴</p>
+                <p>✅正月二十五填仓节：忌倒垃圾、忌睡懒觉</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goNext()">下一页</button>
+            </div>
+        </div>
+        <!-- P3 -->
+        <div class="page" id="p3">
+            <div class="scroll-box">
+                <h2>岁时节令·传统古俗（续）</h2>
+                <p>✅立春：躲春，交节时刻不吵架不见生人</p>
+                <p>✅二月二：禁针线剪刀，不扎龙眼</p>
+                <p>✅寒食节：禁火吃冷食祭祖</p>
+                <p>✅六月六：晒红绿，晒衣物家谱字画</p>
+                <p>✅七夕：不祈福求财</p>
+                <p>✅立秋啃秋，立秋后不食瓜</p>
+                <p>✅十月一送寒衣：傍晚祭祀，不白日烧</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button onclick="goNext()">下一页</button>
+            </div>
+        </div>
+        <!-- P4 -->
+        <div class="page" id="p4">
+            <div class="scroll-box">
+                <h2>居家生活老规矩</h2>
+                <p>🌙夜晚不扫地、不拍枕、不抖被</p>
+                <p>🪞镜子不对门不对床</p>
+                <p>🏠新屋入宅：必须开火做甜食，外卖不算</p>
+                <p>🧨腊月打碎器物要说“岁岁平安”</p>
+                <p>🧹门口不要堆放扫把</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button onclick="goNext()">下一页</button>
+            </div>
+        </div>
+        <!-- P5 -->
+        <div class="page" id="p5">
+            <div class="scroll-box">
+                <h2>餐桌正统礼俗</h2>
+                <p>🍶酒满敬人，茶满欺人，茶水七分满</p>
+                <p>🥘宴席菜品必为双数，单数用于祭祀</p>
+                <p>🐟年夜饭鱼留尾，连年有余</p>
+                <p>🥣吃饭不许扣碗</p>
+                <p>🥢筷子严禁直插米饭（忌上香）</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button onclick="goNext()">下一页</button>
+            </div>
+        </div>
+        <!-- P6 -->
+        <div class="page" id="p6">
+            <div class="scroll-box">
+                <h2>婚嫁冷门习俗</h2>
+                <p>👰新娘鞋藏硬币，随身带财</p>
+                <p>👣新娘脚不沾外土，红毯/人抱进门</p>
+                <p>📅嫁娶避开晦日：三七、腊月、月末绝日</p>
+                <p>🏮新婚三日不扫地，不扫新婚喜气</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button onclick="goNext()">下一页</button>
+            </div>
+        </div>
+        <!-- P7 -->
+        <div class="page" id="p7">
+            <div class="scroll-box">
+                <h2>走亲访友禁忌</h2>
+                <p>🚶初一不宜出远门</p>
+                <p>🏥探病最佳：上午，忌下午晚上探望</p>
+                <p>🎁送礼三忌：不送钟表、不送伞、不送鞋</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button onclick="goNext()">下一页</button>
+            </div>
+        </div>
+<!-- P8 -->
+        <div class="page" id="p8">
+            <div class="scroll-box">
+                <h2>东北独有民俗</h2>
+                <p>❄️腊月冻财：冻梨、冻柿子，冻结财富不散</p>
+                <p>🧊过年窗台摆放冰水，寓意水清财净</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button onclick="goNext()">进入答题</button>
+            </div>
+        </div>
+        <!-- P9 单选 -->
+        <div class="page" id="p9">
+            <div class="question-card">
+                <h3>单选题：北方“填仓节”是农历哪天？</h3>
+                <div class="opt" data-idx="0">A.正月二十</div>
+                <div class="opt" data-idx="1">B.正月二十二</div>
+                <div class="opt" data-idx="2">C.正月二十五</div>
+                <div class="opt" data-idx="3">D.正月二十八</div>
+                <p class="answer-text" id="ans1">答案：C</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button id="submitP9">提交答案</button>
+                <button onclick="goNext()">下一题</button>
+            </div>
+        </div>
+        <!-- P10 多选 -->
+        <div class="page" id="p10">
+            <div class="question-card">
+                <h3>多选题：北方填仓节禁忌行为有？</h3>
+                <div class="opt" data-idx="0">A.向外倒垃圾</div>
+                <div class="opt" data-idx="1">B.借钱外出</div>
+                <div class="opt" data-idx="2">C.存粮食</div>
+                <div class="opt" data-idx="3">D.睡懒觉</div>
+                <p class="answer-text" id="ans2">答案：ABD</p>
+            </div>
+            <div class="btn-group">
+                <button onclick="goPrev()">上一页</button>
+                <button id="submitP10">提交答案</button>
+                <button onclick="goNext()">结束页</button>
+            </div>
+        </div>
+        <!-- P11 结束页【新增两个按钮】 -->
+        <div class="page" id="p11">
+            <div class="scroll-box">
+                <h2>北方传统民俗</h2>
+                <p style="text-align:center;font-size:20px;margin-top:10px">传承老规矩，留住旧时记忆</p>
+                <p style="text-align:center;font-size:18px;margin-top:10px">感谢浏览</p>
+                <p style="text-align:center;font-size:22px;margin-top:30px;color:#c82423;font-weight:bold;" id="finalScoreShow"></p>
+            </div>
+            <div class="btn-group">
+                <button onclick="showWrongList()">查看错题回顾</button>
+                <button onclick="copyShareLink()">复制分享链接</button>
+                <button onclick="goBackHome()">返回首页</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 错题弹窗 DOM【新增】 -->
+<div id="wrongModal">
+    <div class="modal-content">
+        <h3>📝 错题回顾</h3>
+        <div id="wrongBox"></div>
+        <button class="modal-close" onclick="closeWrongModal()">关闭</button>
+    </div>
+</div>
+
+<script>
+const pages = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11"];
+let currentIndex = 0;
+let loadTimer = null;
+const SCORE_PER = 5;
+let totalScore = 0;
+const designCanvas = document.getElementById("designCanvas");
+const scorePanel = document.getElementById("scorePanel");
+const finalScoreShow = document.getElementById("finalScoreShow");
+
+// ========== 错题记录数组【新增】 ==========
+let wrongRecords = [];
+
+// resize防抖
+let resizeTimer = null;
+// ========== 核心缩放函数【已修改，中心居中缩放】 ==========
+function fitScale(){
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+    // 设计稿原始宽高
+    const dw = 640;
+    const dh = 1008;
+    // 取最小缩放比，完整放进屏幕
+    const scale = Math.min(vw / dw, vh / dh);
+    designCanvas.style.left = "50%";
+    designCanvas.style.top = "50%";
+    designCanvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+// 防抖包装resize
+function onWindowResize(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(fitScale, 80);
+}
+window.addEventListener("resize", onWindowResize);
+window.addEventListener("orientationchange", onWindowResize);
+function updateScoreUI(){
+    scorePanel.innerText = "得分：" + totalScore;
+}
+// ========== 加载进度条 ==========
+function startLoading(){
+    // 先清掉旧定时器，防止重复卡死！！！
+    if(loadTimer) clearInterval(loadTimer);
+    const bar = document.getElementById("bar");
+    const loadText = document.getElementById("loadText");
+    let progress = 0;
+    bar.style.width = "0%";
+    loadText.innerText = "已加载 0%";
+    loadTimer = setInterval(function(){
+        progress += 1;
+        bar.style.width = progress + "%";
+        loadText.innerText = "已加载 " + progress + "%";
+        if(progress >= 100){
+            clearInterval(loadTimer);
+            goNext();
+        }
+    }, 45);
+}
+// ========== 翻页 ==========
+window.goNext = function(){
+    if(currentIndex >= pages.length -1) return;
+    document.getElementById(pages[currentIndex]).classList.remove("active");
+    currentIndex++;
+    document.getElementById(pages[currentIndex]).classList.add("active");
+    if(pages[currentIndex]==="p11"){
+        finalScoreShow.innerText = "本次答题总分：" + totalScore + " 分";
+    }
+}
+window.goPrev = function(){
+    if(currentIndex <=0) return;
+    document.getElementById(pages[currentIndex]).classList.remove("active");
+    currentIndex--;
+    document.getElementById(pages[currentIndex]).classList.add("active");
+}
+window.goBackHome = function(){
+    if(loadTimer) clearInterval(loadTimer);
+    pages.forEach(id=>document.getElementById(id).classList.remove("active"));
+    document.getElementById("ans1").style.display="none";
+    document.getElementById("ans2").style.display="none";
+    document.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected","right","wrong","locked"));
+    totalScore = 0;
+    wrongRecords = []; // 清空错题记录
+    updateScoreUI();
+    finalScoreShow.innerText = "";
+    currentIndex = 0;
+    document.getElementById(pages[0]).classList.add("active");
+    startLoading();
+}
+
+// ========== 错题弹窗函数【新增】 ==========
+window.showWrongList = function(){
+    const modal = document.getElementById("wrongModal");
+    const box = document.getElementById("wrongBox");
+    if(wrongRecords.length === 0){
+        box.innerHTML = "<p style='text-align:center; color:#27ae60; font-size:18px'>🎉 恭喜！全部答对，没有错题！</p>";
+    }else{
+        let html = "";
+        wrongRecords.forEach(item=>{
+            html += `
+            <div class="wrong-item">
+                <div class="wrong-q">题目：${item.question}</div>
+                <div class="my-ans">你的答案：${item.userAnswer}</div>
+                <div class="right-ans">正确答案：${item.rightAnswer}</div>
+            </div>`;
+        })
+        box.innerHTML = html;
+    }
+    modal.style.display = "flex";
+}
+window.closeWrongModal = function(){
+    document.getElementById("wrongModal").style.display = "none";
+}
+
+// ========== 复制分享链接【新增】 ==========
+window.copyShareLink = async function(){
+    const totalQues = 2;
+    const url = new URL(location.href);
+    url.searchParams.set("score", totalScore);
+    url.searchParams.set("total", totalQues);
+    const shareUrl = url.toString();
+    try{
+        await navigator.clipboard.writeText(shareUrl);
+        alert("✅ 分享链接复制成功！发给好友查看成绩");
+    }catch(e){
+        prompt("复制下面链接：", shareUrl);
+    }
+}
+
+// P9 单选
+let p9Select = null;
+const p9Opts = document.querySelectorAll("#p9 .opt");
+p9Opts.forEach(opt=>{
+    opt.onclick = function(){
+        if(opt.classList.contains("locked")) return;
+        p9Opts.forEach(o=>o.classList.remove("selected"));
+        opt.classList.add("selected");
+        p9Select = Number(opt.dataset.idx);
+    }
+})
+document.getElementById("submitP9").onclick = function(){
+    if(p9Select === null){alert("请选择选项！");return;}
+    const correct = [2];
+    const answerMap = ["A","B","C","D"];
+    p9Opts.forEach(o=>{
+        o.classList.add("locked");
+        const idx = Number(o.dataset.idx);
+        if(correct.includes(idx)) o.classList.add("right");
+        if(p9Select === idx && !correct.includes(idx)) o.classList.add("wrong");
+    })
+    const isRight = correct.includes(p9Select);
+    if(isRight){
+        totalScore += SCORE_PER;
+        updateScoreUI();
+    }else{
+        // 记录错题
+        wrongRecords.push({
+            question:"北方“填仓节”是农历哪天？",
+            userAnswer: answerMap[p9Select],
+            rightAnswer:"C"
+        })
+    }
+}
+
+// P10多选
+let p10Select = [];
+const p10Opts = document.querySelectorAll("#p10 .opt");
+p10Opts.forEach(opt=>{
+    opt.onclick = function(){
+        if(opt.classList.contains("locked")) return;
+        const idx = Number(opt.dataset.idx);
+        if(p10Select.includes(idx)){
+            p10Select = p10Select.filter(i=>i!==idx);
+            opt.classList.remove("selected");
+        }else{
+            p10Select.push(idx);
+            opt.classList.add("selected");
+        }
+    }
+})
+document.getElementById("submitP10").onclick = function(){
+    if(p10Select.length === 0){alert("请选择至少一项！");return;}
+    const correct = [0,1,3];
+    const ok = p10Select.length === correct.length && p10Select.every(x=>correct.includes(x));
+    const answerMap = ["A","B","C","D"];
+    p10Opts.forEach(o=>{
+        o.classList.add("locked");
+        const idx = Number(o.dataset.idx);
+        if(correct.includes(idx)) o.classList.add("right");
+        if(p10Select.includes(idx) && !correct.includes(idx)) o.classList.add("wrong");
+    })
+    if(ok){
+        totalScore += SCORE_PER;
+        updateScoreUI();
+    }else{
+        // 多选答案转文字
+        const userStr = p10Select.sort().map(i=>answerMap[i]).join("、");
+        wrongRecords.push({
+            question:"北方填仓节禁忌行为有？",
+            userAnswer: userStr,
+            rightAnswer:"A、B、D"
+        })
+    }
+}
+
+// 背景音乐
+const bgMusic = new Audio("bgmusic.mp3");
+bgMusic.loop = true;
+bgMusic.volume = 0.3;
+let musicStarted = false;
+document.addEventListener("click",function(){
+    if(!musicStarted){
+        bgMusic.play().catch(err=>console.log("音乐播放失败",err));
+        musicStarted = true;
+    }
+})
+
+// 初始化
+fitScale();
+startLoading();
+updateScoreUI();
+</script>
+</body>
+</html>
