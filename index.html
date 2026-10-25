@@ -2,635 +2,684 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>北方传统民俗H5-640:1008</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>填仓节知识测试</title>
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:"Microsoft YaHei",serif;
-}
-html,body{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    background:#fff8ee;
-}
-/* 视口容器，占满整个设备屏幕 */
-#viewport{
-   width:100vw;
-   height:100vh;
-   position:relative;
-   overflow:hidden;
-   background:#fff8ee;
-}
-/* 设计稿画布，固定原始尺寸 640*1008，改为中心缩放 */
-#designCanvas{
-    width:640px;
-    height:1008px;
-    position:absolute;
-    overflow:hidden;
-    background:#fff8ee;
-    transform-origin: center center;
-}
-.page{
-    width:640px;
-    height:1008px;
-    position:absolute;
-    top:0;
-    left:0;
-    padding:24px 16px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    transition:transform 0.8s ease;
-    transform:translateX(100%);
-    background-size:100% 100%;
-    background-repeat:no-repeat;
-}
-.page.active{
-    transform:translateX(0);
-}
-#p1{background-image:url("p1.jpg");}
-#p2{background-image:url("p2.jpg");}
-#p3{background-image:url("p3.jpg");}
-#p4{background-image:url("p4.jpg");}
-#p5{background-image:url("p5.jpg");}
-#p6{background-image:url("p6.jpg");}
-#p7{background-image:url("p7.jpg");}
-#p8{background-image:url("p8.jpg");}
-#p9{background-image:url("p9.jpg");}
-#p10{background-image:url("p9.jpg");}
-#p11{background-image:url("p1.jpg");}
-.scroll-box{
-    background:rgba(255,252,240,0.92);
-    border:2px solid #a88b68;
-    border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-    padding:20px;
-    width:560px;
-    height:420px;
-    margin:0 auto;
-    overflow-y:auto;
-}
-.scroll-box h2{
-    font-size:24px;
-    margin-bottom:16px;
-    text-align:center;
-    color:#5c3c20;
-}
-.scroll-box p{
-    font-size:16px;
-    line-height:1.8;
-    margin:7px 0;
-}
-.load-page{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-.load-title{
-    font-size:32px;
-    margin-bottom:12px;
-}
-.load-sub{
-    font-size:18px;
-    margin-bottom:40px;
-}
-.progress-wrap{
-    width:280px;
-    height:24px;
-    border:2px solid #8b5a2b;
-    border-radius:12px;
-    overflow:hidden;
-    background:#fff3e0;
-}
-.progress-bar{
-    height:100%;
-    width:0%;
-    background:#8b5a2b;
-}
-.progress-text{
-    margin-top:10px;
-    font-size:16px;
-}
-.btn-group{
-    margin-top:24px;
-    display:flex;
-    gap:10px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-button{
-    padding:9px 18px;
-    font-size:15px;
-    border:none;
-    border-radius:8px;
-    background:#8b5a2b;
-    color:#fff;
-    cursor:pointer;
-}
-.question-card{
-    background:rgba(255,252,240,0.92);
-    border:2px solid #a88b68;
-    border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.15);
-    padding:20px;
-    width:560px;
-    height:440px;
-    margin:0 auto;
-    overflow-y:auto;
-}
-.question-card h3{
-    font-size:19px;
-    margin-bottom:14px;
-}
-.opt{
-    padding:10px 14px;
-    margin:8px 0;
-    border:2px solid #c9a87c;
-    border-radius:8px;
-    cursor:pointer;
-    background:#fff;
-}
-.opt.selected{
-    background:#e8d5b5;
-    border-color:#8b4513;
-}
-.opt.right{
-    background:#2ecc71 !important;
-    color:#fff;
-    border-color:#27ae60;
-}
-.opt.wrong{
-    background:#e74c3c !important;
-    color:#fff;
-    border-color:#c0392b;
-}
-.opt.locked{
-    pointer-events:none;
-}
-.answer-text{
-    color:#c82423;
-    display:none;
-    margin-top:14px;
-    font-size:17px;
-    font-weight:bold;
-}
-#scorePanel{
-    position:absolute;
-    top:16px;
-    left:16px;
-    z-index:9999;
-    background:#8b4513;
-    color:#fff;
-    padding:6px 12px;
-    border-radius:8px;
-    font-size:18px;
-}
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:"Microsoft YaHei", sans-serif;
+    background:#f5f0e6;
+    overflow-x:hidden;
+  }
 
-/* ========== 错题弹窗样式【新增】 ========== */
-#wrongModal{
-    position:fixed;
-    left:0;top:0;
-    width:100vw;height:100vh;
-    background:rgba(0,0,0,0.6);
-    display:none;
-    align-items:center;
-    justify-content:center;
-    z-index:99999;
-}
-.modal-content{
-    width:540px;
-    max-height:80vh;
-    background:#fff8ee;
-    border:2px solid #a88b68;
-    border-radius:12px;
+  /* ====== 背景粒子 Canvas ====== */
+  #particleCanvas {
+    position:fixed; inset:0;
+    z-index:0; pointer-events:none;
+  }
+  .page-wrap {
+    position:relative; z-index:1;
+    min-height:100vh;
+    display:flex; justify-content:center; align-items:center;
     padding:20px;
-    overflow-y:auto;
-}
-.modal-content h3{
-    text-align:center;
-    color:#5c3c20;
-    margin-bottom:16px;
-    font-size:22px;
-}
-.wrong-item{
-    border-bottom:1px solid #d6c2a8;
-    padding:12px 0;
-}
-.wrong-item:last-child{
-    border-bottom:none;
-}
-.wrong-q{
-    font-weight:bold;
-    color:#5c3c20;
-    margin-bottom:6px;
-}
-.my-ans{
-    color:#e74c3c;
-}
-.right-ans{
-    color:#27ae60;
-}
-.modal-close{
-    margin-top:16px;
-    width:100%;
-}
+  }
+
+  /* ====== 页面卡片 + 转场（淡入+上浮） ====== */
+  .page {
+    background:#fff;
+    border-radius:16px;
+    box-shadow:0 8px 30px rgba(0,0,0,.12);
+    width:100%; max-width:420px;
+    padding:30px 28px;
+    opacity:0;
+    transform:translateY(24px);
+    transition:opacity .5s ease, transform .5s ease;
+    position:absolute;
+    display:none;
+    max-height:92vh; overflow-y:auto;
+  }
+  .page.enter {
+    display:block;
+    opacity:1; transform:translateY(0);
+  }
+  .page.exit {
+    display:block;
+    opacity:0; transform:translateY(-14px); pointer-events:none;
+  }
+
+  /* ====== 标题/文案逐一浮现 ====== */
+  .fade-item { opacity:0; animation:fadeUp .6s forwards; }
+  @keyframes fadeUp {
+    from{opacity:0; transform:translateY(14px);}
+    to{opacity:1; transform:translateY(0);}
+  }
+
+  /* ====== 头部 ====== */
+  .head { display:flex; justify-content:space-between; align-items:center; margin-bottom:6px; }
+  .head h2 { font-size:19px; color:#7a4a1f; }
+  .music-btn {
+    background:#f0e8d8; border:none; border-radius:50%;
+    width:34px;height:34px;font-size:17px;cursor:pointer;transition:.2s;
+  }
+  .music-btn:hover{transform:scale(1.1);}
+  .score-badge {
+    background:#f0e8d8; border-radius:20px;
+    padding:4px 12px; font-size:13px; font-weight:bold; color:#7a4a1f;
+  }
+  .sub { text-align:center; color:#999; font-size:13px; margin-bottom:12px; }
+
+  .timer { display:inline-block; font-size:16px; font-weight:bold; color:#7a4a1f;
+    padding:5px 16px; border-radius:20px; background:#fdf6e3; border:2px solid #e8d8b8; }
+  .timer.low { color:#c62828; border-color:#c62828; animation:blink 1s infinite; }
+  @keyframes blink { 50% { opacity:.5; } }
+
+  .question { font-size:16px; color:#333; margin:10px 0 16px; line-height:1.6; }
+
+  /* ====== 配图入场（淡入+放大回弹） ====== */
+  .q-img {
+    width:100%; max-height:180px; object-fit:cover;
+    border-radius:10px; margin-bottom:14px;
+    opacity:0;
+    animation:imgIn .9s ease forwards;
+  }
+  @keyframes imgIn {
+    0%{opacity:0; transform:scale(.9);}
+    60%{opacity:1; transform:scale(1.03);}
+    100%{opacity:1; transform:scale(1);}
+  }
+
+  /* ====== 选项 + 波纹 ====== */
+  .opt {
+    display:flex; align-items:center; position:relative; overflow:hidden;
+    padding:12px 14px;
+    border:2px solid #e8e0d2; border-radius:10px;
+    margin-bottom:10px; cursor:pointer; transition:.18s;
+  }
+  .opt:hover { border-color:#c9a86a; transform:translateX(3px); }
+  .opt .key {
+    width:26px;height:26px;border-radius:50%;
+    background:#f0e8d8;color:#7a4a1f;
+    display:flex;align-items:center;justify-content:center;
+    font-size:14px;font-weight:bold;margin-right:10px;flex-shrink:0;
+  }
+  .opt .txt { font-size:14px; color:#444; }
+  .opt.selected { border-color:#d9a441; background:#fdf6e3; animation:pop .25s; }
+  .opt.selected .key { background:#d9a441; color:#fff; }
+  .opt.correct { border-color:#2e7d32; background:#eaf6ec; animation:pop .4s; }
+  .opt.correct .key { background:#2e7d32; color:#fff; }
+  .opt.wrong { border-color:#c62828; background:#fdecea; animation:shake .3s; }
+  .opt.wrong .key { background:#c62828; color:#fff; }
+  .opt.disabled { pointer-events:none; opacity:.7; }
+  @keyframes pop { 0%{transform:scale(1);} 50%{transform:scale(1.04);} 100%{transform:scale(1);} }
+  @keyframes shake { 0%,100%{transform:translateX(0);} 25%{transform:translateX(-5px);} 75%{transform:translateX(5px);} }
+
+  /* 按钮按下缩放 */
+  .btn {
+    width:100%; padding:13px; border:none; border-radius:10px;
+    font-size:15px; cursor:pointer; position:relative; overflow:hidden;
+    background:linear-gradient(135deg,#d9a441,#c98a2b); color:#fff;
+    font-weight:bold; transition:transform .1s;
+  }
+  .btn:active { transform:scale(.96); }
+  .btn:disabled { opacity:.5; cursor:not-allowed; }
+
+  /* 波纹 */
+  .ripple { position:absolute; border-radius:50%;
+    background:rgba(255,255,255,.5); transform:scale(0);
+    animation:ripple .5s linear; pointer-events:none; }
+  @keyframes ripple { to { transform:scale(4); opacity:0; } }
+
+  .res { margin-top:16px; padding:14px; border-radius:10px;
+    font-size:14px; display:none; line-height:1.7; animation:fadeUp .4s; }
+  .res.correct { background:#eaf6ec; color:#2e7d32; }
+  .res.wrong { background:#fdecea; color:#c62828; }
+
+  .link-row { margin-top:16px; text-align:center; }
+  .link-row button { background:none;border:none;color:#7a4a1f;font-size:14px;
+    cursor:pointer;text-decoration:underline;margin:0 6px; }
+
+  /* ====== 加载页 ====== */
+  #loading .load-bar {
+    width:100%; height:10px; background:#eee; border-radius:10px;
+    overflow:hidden; margin:20px 0;
+  }
+  #loading .load-fill { height:100%; width:0%;
+    background:linear-gradient(90deg,#e8c56a,#c98a2b);
+    border-radius:10px; transition:width .3s; }
+
+  /* ====== 结束页 countUp ====== */
+  #finalScore { font-size:52px; font-weight:bold; color:#c98a2b;
+    text-align:center; margin:10px 0; }
+
+  /* ====== Toast ====== */
+  #toast {
+    position:fixed; left:50%; bottom:40px; transform:translateX(-50%) translateY(20px);
+    background:rgba(40,40,40,.9); color:#fff; padding:12px 22px; border-radius:30px;
+    font-size:14px; opacity:0; transition:.4s; z-index:200; pointer-events:none; white-space:nowrap;
+  }
+  #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+  /* ====== 分享卡片弹窗 ====== */
+  .mask { position:fixed;inset:0;background:rgba(0,0,0,.45);
+    display:none;align-items:center;justify-content:center;z-index:150;padding:20px; }
+  .mask.show { display:flex; }
+  .modal { background:#fff;border-radius:14px;width:100%;max-width:400px;padding:24px;
+    animation:pop .35s; }
+  .modal h3 { margin-bottom:14px; color:#7a4a1f; }
+  .wrong-item { border:1px solid #e8e0d2; border-radius:10px; padding:12px; margin-bottom:12px; font-size:14px; line-height:1.8; }
+  .wrong-q { font-weight:bold; color:#333; margin-bottom:4px; }
+  .my-ans { color:#c62828; }
+  .right-ans { color:#2e7d32; }
+  .right-ans div { font-size:13px; }
+  .close-btn { display:block;width:100%;padding:11px;margin-top:8px;
+    border:none;border-radius:8px;background:#eee;color:#555;font-size:14px;cursor:pointer; }
+  .share-card {
+    background:linear-gradient(135deg,#fdf6e3,#f0e0c0);
+    border-radius:12px; padding:18px; text-align:center; margin-bottom:16px;
+  }
+  .share-card .share-title { font-size:18px; color:#7a4a1f; font-weight:bold; }
+  .share-card .share-score { font-size:40px; color:#c98a2b; font-weight:bold; margin:8px 0; }
 </style>
 </head>
 <body>
-<div id="viewport">
-    <div id="designCanvas">
-        <div id="scorePanel">得分：0</div>
-        <!-- P1 加载页 -->
-        <div class="page load-page active" id="p1">
-            <h1 class="load-title">北方冷门传统民俗</h1>
-            <p class="load-sub">那些渐渐失传的老规矩</p>
-            <div class="progress-wrap">
-                <div class="progress-bar" id="bar"></div>
-            </div>
-            <div class="progress-text" id="loadText">已加载 0%</div>
-        </div>
-        <!-- P2 -->
-        <div class="page" id="p2">
-            <div class="scroll-box">
-                <h2>岁时节令·传统古俗</h2>
-                <p>✅正月初一：忌喝粥，食干食</p>
-                <p>✅正月初三：赤狗日，不串门宴请</p>
-                <p>✅正月初六：送穷神大扫除</p>
-                <p>✅正月十二：捏面灯，捏老鼠嘴</p>
-                <p>✅正月二十五填仓节：忌倒垃圾、忌睡懒觉</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goNext()">下一页</button>
-            </div>
-        </div>
-        <!-- P3 -->
-        <div class="page" id="p3">
-            <div class="scroll-box">
-                <h2>岁时节令·传统古俗（续）</h2>
-                <p>✅立春：躲春，交节时刻不吵架不见生人</p>
-                <p>✅二月二：禁针线剪刀，不扎龙眼</p>
-                <p>✅寒食节：禁火吃冷食祭祖</p>
-                <p>✅六月六：晒红绿，晒衣物家谱字画</p>
-                <p>✅七夕：不祈福求财</p>
-                <p>✅立秋啃秋，立秋后不食瓜</p>
-                <p>✅十月一送寒衣：傍晚祭祀，不白日烧</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button onclick="goNext()">下一页</button>
-            </div>
-        </div>
-        <!-- P4 -->
-        <div class="page" id="p4">
-            <div class="scroll-box">
-                <h2>居家生活老规矩</h2>
-                <p>🌙夜晚不扫地、不拍枕、不抖被</p>
-                <p>🪞镜子不对门不对床</p>
-                <p>🏠新屋入宅：必须开火做甜食，外卖不算</p>
-                <p>🧨腊月打碎器物要说“岁岁平安”</p>
-                <p>🧹门口不要堆放扫把</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button onclick="goNext()">下一页</button>
-            </div>
-        </div>
-        <!-- P5 -->
-        <div class="page" id="p5">
-            <div class="scroll-box">
-                <h2>餐桌正统礼俗</h2>
-                <p>🍶酒满敬人，茶满欺人，茶水七分满</p>
-                <p>🥘宴席菜品必为双数，单数用于祭祀</p>
-                <p>🐟年夜饭鱼留尾，连年有余</p>
-                <p>🥣吃饭不许扣碗</p>
-                <p>🥢筷子严禁直插米饭（忌上香）</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button onclick="goNext()">下一页</button>
-            </div>
-        </div>
-        <!-- P6 -->
-        <div class="page" id="p6">
-            <div class="scroll-box">
-                <h2>婚嫁冷门习俗</h2>
-                <p>👰新娘鞋藏硬币，随身带财</p>
-                <p>👣新娘脚不沾外土，红毯/人抱进门</p>
-                <p>📅嫁娶避开晦日：三七、腊月、月末绝日</p>
-                <p>🏮新婚三日不扫地，不扫新婚喜气</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button onclick="goNext()">下一页</button>
-            </div>
-        </div>
-        <!-- P7 -->
-        <div class="page" id="p7">
-            <div class="scroll-box">
-                <h2>走亲访友禁忌</h2>
-                <p>🚶初一不宜出远门</p>
-                <p>🏥探病最佳：上午，忌下午晚上探望</p>
-                <p>🎁送礼三忌：不送钟表、不送伞、不送鞋</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button onclick="goNext()">下一页</button>
-            </div>
-        </div>
-<!-- P8 -->
-        <div class="page" id="p8">
-            <div class="scroll-box">
-                <h2>东北独有民俗</h2>
-                <p>❄️腊月冻财：冻梨、冻柿子，冻结财富不散</p>
-                <p>🧊过年窗台摆放冰水，寓意水清财净</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button onclick="goNext()">进入答题</button>
-            </div>
-        </div>
-        <!-- P9 单选 -->
-        <div class="page" id="p9">
-            <div class="question-card">
-                <h3>单选题：北方“填仓节”是农历哪天？</h3>
-                <div class="opt" data-idx="0">A.正月二十</div>
-                <div class="opt" data-idx="1">B.正月二十二</div>
-                <div class="opt" data-idx="2">C.正月二十五</div>
-                <div class="opt" data-idx="3">D.正月二十八</div>
-                <p class="answer-text" id="ans1">答案：C</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button id="submitP9">提交答案</button>
-                <button onclick="goNext()">下一题</button>
-            </div>
-        </div>
-        <!-- P10 多选 -->
-        <div class="page" id="p10">
-            <div class="question-card">
-                <h3>多选题：北方填仓节禁忌行为有？</h3>
-                <div class="opt" data-idx="0">A.向外倒垃圾</div>
-                <div class="opt" data-idx="1">B.借钱外出</div>
-                <div class="opt" data-idx="2">C.存粮食</div>
-                <div class="opt" data-idx="3">D.睡懒觉</div>
-                <p class="answer-text" id="ans2">答案：ABD</p>
-            </div>
-            <div class="btn-group">
-                <button onclick="goPrev()">上一页</button>
-                <button id="submitP10">提交答案</button>
-                <button onclick="goNext()">结束页</button>
-            </div>
-        </div>
-        <!-- P11 结束页【新增两个按钮】 -->
-        <div class="page" id="p11">
-            <div class="scroll-box">
-                <h2>北方传统民俗</h2>
-                <p style="text-align:center;font-size:20px;margin-top:10px">传承老规矩，留住旧时记忆</p>
-                <p style="text-align:center;font-size:18px;margin-top:10px">感谢浏览</p>
-                <p style="text-align:center;font-size:22px;margin-top:30px;color:#c82423;font-weight:bold;" id="finalScoreShow"></p>
-            </div>
-            <div class="btn-group">
-                <button onclick="showWrongList()">查看错题回顾</button>
-                <button onclick="copyShareLink()">复制分享链接</button>
-                <button onclick="goBackHome()">返回首页</button>
-            </div>
-        </div>
+
+<canvas id="particleCanvas"></canvas>
+
+<!-- ====== 加载页 ====== -->
+<div class="page-wrap">
+  <div class="page enter" id="loading">
+    <h2 class="fade-item" style="text-align:center;color:#7a4a1f;">填仓节知识测试</h2>
+    <p class="fade-item" style="text-align:center;color:#999;margin-top:8px;">正在加载…</p>
+    <div class="load-bar"><div class="load-fill" id="loadFill"></div></div>
+    <div style="text-align:center;">
+      <button class="btn" id="skipBtn" style="width:auto;padding:8px 22px;">跳过</button>
     </div>
+  </div>
 </div>
 
-<!-- 错题弹窗 DOM【新增】 -->
-<div id="wrongModal">
-    <div class="modal-content">
-        <h3>📝 错题回顾</h3>
-        <div id="wrongBox"></div>
-        <button class="modal-close" onclick="closeWrongModal()">关闭</button>
-    </div>
+<!-- 其余页面由 JS 动态创建，这里只留容器 -->
+<div class="page-wrap" id="mainWrap" style="display:none;"></div>
+
+<!-- 模态（错题/分享共用） -->
+<div class="mask" id="modalMask">
+  <div class="modal">
+    <div id="modalContent"></div>
+    <button class="close-btn" onclick="closeModal()">关闭</button>
+  </div>
 </div>
+
+<div id="toast"></div>
 
 <script>
-const pages = ["p1","p2","p3","p4","p5","p6","p7","p8","p9","p10","p11"];
-let currentIndex = 0;
-let loadTimer = null;
-const SCORE_PER = 5;
-let totalScore = 0;
-const designCanvas = document.getElementById("designCanvas");
-const scorePanel = document.getElementById("scorePanel");
-const finalScoreShow = document.getElementById("finalScoreShow");
+/* ========== 背景粒子（Canvas / 雪花或花瓣） ========== */
+const canvas = document.getElementById('particleCanvas');
+const ctx = canvas.getContext('2d');
+let particles = [];
+let particleType = 'snow'; // snow | petal
 
-// ========== 错题记录数组【新增】 ==========
-let wrongRecords = [];
+function resizeCanvas(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resizeCanvas);
+resizeCanvas();
 
-// resize防抖
-let resizeTimer = null;
-// ========== 核心缩放函数【已修改，中心居中缩放】 ==========
-function fitScale(){
-    const vw = window.innerWidth;
-    const vh = window.innerHeight;
-    // 设计稿原始宽高
-    const dw = 640;
-    const dh = 1008;
-    // 取最小缩放比，完整放进屏幕
-    const scale = Math.min(vw / dw, vh / dh);
-    designCanvas.style.left = "50%";
-    designCanvas.style.top = "50%";
-    designCanvas.style.transform = `translate(-50%, -50%) scale(${scale})`;
+function makeParticle(count=60){
+  particles = [];
+  for(let i=0;i<count;i++){
+    particles.push({
+      x: Math.random()*canvas.width,
+      y: Math.random()*canvas.height,
+      r: Math.random()*4 + 2,
+      speedY: Math.random()*1.5 + .5,
+      sway: Math.random()*2 - 1,
+      swaySpeed: Math.random()*.02 + .01,
+      swayOffset: Math.random()*Math.PI*2,
+      alpha: Math.random()*.5 + .3,
+      petalColor: ['#f4c2c2','#f9d5e0','#f6e1c1'][Math.floor(Math.random()*3)]
+    });
+  }
 }
-// 防抖包装resize
-function onWindowResize(){
-    clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(fitScale, 80);
-}
-window.addEventListener("resize", onWindowResize);
-window.addEventListener("orientationchange", onWindowResize);
-function updateScoreUI(){
-    scorePanel.innerText = "得分：" + totalScore;
-}
-// ========== 加载进度条 ==========
-function startLoading(){
-    // 先清掉旧定时器，防止重复卡死！！！
-    if(loadTimer) clearInterval(loadTimer);
-    const bar = document.getElementById("bar");
-    const loadText = document.getElementById("loadText");
-    let progress = 0;
-    bar.style.width = "0%";
-    loadText.innerText = "已加载 0%";
-    loadTimer = setInterval(function(){
-        progress += 1;
-        bar.style.width = progress + "%";
-        loadText.innerText = "已加载 " + progress + "%";
-        if(progress >= 100){
-            clearInterval(loadTimer);
-            goNext();
-        }
-    }, 45);
-}
-// ========== 翻页 ==========
-window.goNext = function(){
-    if(currentIndex >= pages.length -1) return;
-    document.getElementById(pages[currentIndex]).classList.remove("active");
-    currentIndex++;
-    document.getElementById(pages[currentIndex]).classList.add("active");
-    if(pages[currentIndex]==="p11"){
-        finalScoreShow.innerText = "本次答题总分：" + totalScore + " 分";
-    }
-}
-window.goPrev = function(){
-    if(currentIndex <=0) return;
-    document.getElementById(pages[currentIndex]).classList.remove("active");
-    currentIndex--;
-    document.getElementById(pages[currentIndex]).classList.add("active");
-}
-window.goBackHome = function(){
-    if(loadTimer) clearInterval(loadTimer);
-    pages.forEach(id=>document.getElementById(id).classList.remove("active"));
-    document.getElementById("ans1").style.display="none";
-    document.getElementById("ans2").style.display="none";
-    document.querySelectorAll(".opt").forEach(o=>o.classList.remove("selected","right","wrong","locked"));
-    totalScore = 0;
-    wrongRecords = []; // 清空错题记录
-    updateScoreUI();
-    finalScoreShow.innerText = "";
-    currentIndex = 0;
-    document.getElementById(pages[0]).classList.add("active");
-    startLoading();
+makeParticle();
+
+function drawParticle(p){
+  ctx.beginPath();
+  if(particleType==='snow'){
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+    ctx.fillStyle = `rgba(255,255,255,${p.alpha})`;
+  }else{
+    // 简单花瓣（椭圆）
+    ctx.ellipse(p.x, p.y, p.r*1.4, p.r, 0, 0, Math.PI*2);
+    ctx.fillStyle = p.petalColor;
+    ctx.globalAlpha = p.alpha;
+  }
+  ctx.fill();
+  ctx.globalAlpha = 1;
 }
 
-// ========== 错题弹窗函数【新增】 ==========
-window.showWrongList = function(){
-    const modal = document.getElementById("wrongModal");
-    const box = document.getElementById("wrongBox");
-    if(wrongRecords.length === 0){
-        box.innerHTML = "<p style='text-align:center; color:#27ae60; font-size:18px'>🎉 恭喜！全部答对，没有错题！</p>";
-    }else{
-        let html = "";
-        wrongRecords.forEach(item=>{
-            html += `
-            <div class="wrong-item">
-                <div class="wrong-q">题目：${item.question}</div>
-                <div class="my-ans">你的答案：${item.userAnswer}</div>
-                <div class="right-ans">正确答案：${item.rightAnswer}</div>
-            </div>`;
-        })
-        box.innerHTML = html;
+function animParticles(){
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles.forEach(p=>{
+    p.y += p.speedY;
+    p.swayOffset += p.swaySpeed;
+    p.x += p.sway * Math.sin(p.swayOffset);
+    if(p.y > canvas.height + 10){
+      p.y = -10;
+      p.x = Math.random()*canvas.width;
     }
-    modal.style.display = "flex";
+    if(p.x < -10) p.x = canvas.width + 10;
+    if(p.x > canvas.width + 10) p.x = -10;
+  });
+  particles.forEach(drawParticle);
+  requestAnimationFrame(animParticles);
 }
-window.closeWrongModal = function(){
-    document.getElementById("wrongModal").style.display = "none";
-}
+animParticles();
 
-// ========== 复制分享链接【新增】 ==========
-window.copyShareLink = async function(){
-    const totalQues = 2;
-    const url = new URL(location.href);
-    url.searchParams.set("score", totalScore);
-    url.searchParams.set("total", totalQues);
-    const shareUrl = url.toString();
-    try{
-        await navigator.clipboard.writeText(shareUrl);
-        alert("✅ 分享链接复制成功！发给好友查看成绩");
-    }catch(e){
-        prompt("复制下面链接：", shareUrl);
-    }
-}
+window.addEventListener('message', e=>{}); // 预留
 
-// P9 单选
-let p9Select = null;
-const p9Opts = document.querySelectorAll("#p9 .opt");
-p9Opts.forEach(opt=>{
-    opt.onclick = function(){
-        if(opt.classList.contains("locked")) return;
-        p9Opts.forEach(o=>o.classList.remove("selected"));
-        opt.classList.add("selected");
-        p9Select = Number(opt.dataset.idx);
-    }
-})
-document.getElementById("submitP9").onclick = function(){
-    if(p9Select === null){alert("请选择选项！");return;}
-    const correct = [2];
-    const answerMap = ["A","B","C","D"];
-    p9Opts.forEach(o=>{
-        o.classList.add("locked");
-        const idx = Number(o.dataset.idx);
-        if(correct.includes(idx)) o.classList.add("right");
-        if(p9Select === idx && !correct.includes(idx)) o.classList.add("wrong");
-    })
-    const isRight = correct.includes(p9Select);
-    if(isRight){
-        totalScore += SCORE_PER;
-        updateScoreUI();
-    }else{
-        // 记录错题
-        wrongRecords.push({
-            question:"北方“填仓节”是农历哪天？",
-            userAnswer: answerMap[p9Select],
-            rightAnswer:"C"
-        })
-    }
+/* ========== 音效（Web Audio） ========== */
+let audioCtx = null;
+function beep(freq, dur=.12, type='sine', vol=.12){
+  try{
+    audioCtx = audioCtx || new (window.AudioContext||window.webkitAudioContext)();
+    const o=audioCtx.createOscillator(), g=audioCtx.createGain();
+    o.type=type; o.frequency.value=freq;
+    g.gain.value=vol;
+    o.connect(g); g.connect(audioCtx.destination);
+    o.start(); o.stop(audioCtx.currentTime+dur);
+  }catch(e){}
+}
+function playCorrect(){ beep(880); setTimeout(()=>beep(1100),120); }
+function playWrong(){ beep(200,.25,'square'); }
+
+/* ========== 背景音乐（简易循环音符）——开关按钮 ========== */
+let musicOn = false, musicTimer = null, musicStep = 0;
+const melody = [523,587,659,784,659,587,523];
+function toggleMusic(btn){
+  musicOn = !musicOn;
+  btn.textContent = musicOn ? '🎵' : '🔇';
+  if(musicOn){
+    musicStep=0;
+    musicTimer = setInterval(()=>{
+      beep(melody[musicStep%melody.length], .3, 'sine', .06);
+      musicStep++;
+    }, 450);
+  }else{
+    clearInterval(musicTimer);
+    musicTimer=null;
+  }
 }
 
-// P10多选
-let p10Select = [];
-const p10Opts = document.querySelectorAll("#p10 .opt");
-p10Opts.forEach(opt=>{
-    opt.onclick = function(){
-        if(opt.classList.contains("locked")) return;
-        const idx = Number(opt.dataset.idx);
-        if(p10Select.includes(idx)){
-            p10Select = p10Select.filter(i=>i!==idx);
-            opt.classList.remove("selected");
-        }else{
-            p10Select.push(idx);
-            opt.classList.add("selected");
-        }
-    }
-})
-document.getElementById("submitP10").onclick = function(){
-    if(p10Select.length === 0){alert("请选择至少一项！");return;}
-    const correct = [0,1,3];
-    const ok = p10Select.length === correct.length && p10Select.every(x=>correct.includes(x));
-    const answerMap = ["A","B","C","D"];
-    p10Opts.forEach(o=>{
-        o.classList.add("locked");
-        const idx = Number(o.dataset.idx);
-        if(correct.includes(idx)) o.classList.add("right");
-        if(p10Select.includes(idx) && !correct.includes(idx)) o.classList.add("wrong");
-    })
-    if(ok){
-        totalScore += SCORE_PER;
-        updateScoreUI();
-    }else{
-        // 多选答案转文字
-        const userStr = p10Select.sort().map(i=>answerMap[i]).join("、");
-        wrongRecords.push({
-            question:"北方填仓节禁忌行为有？",
-            userAnswer: userStr,
-            rightAnswer:"A、B、D"
-        })
-    }
+/* ========== 波纹特效（给 .btn / 选项绑定） ========== */
+document.addEventListener('click', e=>{
+  const t = e.target.closest('.btn, .opt');
+  if(!t) return;
+  const rect = t.getBoundingClientRect();
+  const r = document.createElement('span');
+  const size = Math.max(rect.width, rect.height);
+  r.className = 'ripple';
+  r.style.width = r.style.height = size + 'px';
+  r.style.left = (e.clientX - rect.left - size/2) + 'px';
+  r.style.top = (e.clientY - rect.top - size/2) + 'px';
+  t.appendChild(r);
+  setTimeout(()=>r.remove(), 500);
+});
+
+/* ========== Toast ========== */
+let toastTimer=null;
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2000);
 }
 
-// 背景音乐
-const bgMusic = new Audio("bgmusic.mp3");
-bgMusic.loop = true;
-bgMusic.volume = 0.3;
-let musicStarted = false;
-document.addEventListener("click",function(){
-    if(!musicStarted){
-        bgMusic.play().catch(err=>console.log("音乐播放失败",err));
-        musicStarted = true;
-    }
-})
+/* ========== 数据 ========== */
+const wrongRecords = [];
+const answerMap=['A','B','C','D'];
+let score=0;
+const TOTAL=2;
 
-// 初始化
-fitScale();
-startLoading();
-updateScoreUI();
+/* 页面对数据（本题：单选+多选，此处按你的题目设两个页面） */
+const pages = [
+  {
+    id:'quiz1', type:'single', title:'填仓节·单选题',
+    sub:'第 1 题 / 共 2 题', time:15,
+    question:'北方"填仓节"是农历哪天？',
+    img:'', // 可配图片
+    options:['正月二十','正月二十三','正月二十五','二月初二'],
+    answer:[2]
+  },
+  {
+    id:'quiz2', type:'multi', title:'填仓节·多选题',
+    sub:'第 2 题 / 共 2 题', time:20,
+    question:'北方填仓节禁忌行为有？',
+    img:'',
+    options:['向外倒垃圾','借钱外出','存粮食','睡懒觉'],
+    answer:[0,1,3]
+  }
+];
+
+/* ========== 页面切换（转场） ========== */
+let currentPageId = null;
+
+function switchPage(nextPageFn){
+  // 若当前有页面，先执行退出动画
+  const cur = currentPageId ? document.getElementById(currentPageId) : null;
+  if(cur){
+    cur.classList.remove('enter');
+    cur.classList.add('exit');
+    setTimeout(()=>{
+      cur.style.display='none';
+      cur.classList.remove('exit');
+      startNewPage(nextPageFn);
+    }, 450);
+  }else{
+    startNewPage(nextPageFn);
+  }
+}
+
+function startNewPage(nextPageFn){
+  // 隐藏 loading，显示主容器
+  document.getElementById('loading').style.display='none';
+  document.getElementById('mainWrap').style.display='flex';
+  nextPageFn();
+}
+
+/* 进入指定编号题目页 */
+function goToQuiz(i){
+  const p = pages[i];
+  // 创建页面 DOM
+  const wrap = document.getElementById('mainWrap');
+  wrap.innerHTML = '';
+  const page = document.createElement('div');
+  page.className='page';
+  page.id = p.id;
+  page.style.display='block';
+  page.style.position='relative';
+
+  // 逐项浮现用 fade-item
+  let optHtml = '';
+  p.options.forEach((op,idx)=>{
+    optHtml += `
+      <div class="opt" data-i="${idx}">
+        <div class="key">${answerMap[idx]}</div>
+        <div class="txt">${op}</div>
+      </div>`;
+  });
+  const imgHtml = p.img ? `<img class="q-img" src="${p.img}" alt="">` : '';
+
+  page.innerHTML = `
+    <div class="head">
+      <button class="music-btn fade-item" onclick="toggleMusic(this)">🔇</button>
+      <h2 class="fade-item" style="flex:1;text-align:center;">${p.title}</h2>
+      <span class="score-badge fade-item">得分 ${score}</span>
+    </div>
+    <div class="sub fade-item" style="animation-delay:.08s;">${p.sub}</div>
+    <div style="text-align:center;" class="fade-item" style="animation-delay:.12s;">
+      <span class="timer" id="t${p.id}">⏱ ${p.time}</span>
+    </div>
+    ${p.img?`<div class="fade-item">${imgHtml}</div>`:''}
+    <div class="question fade-item" style="animation-delay:.16s;">${p.question}</div>
+    ${optHtml}
+    <div class="btn-row fade-item" style="animation-delay:.2s;">
+      <button class="btn" id="sub${p.id}">提交答案</button>
+    </div>
+    <div class="res" id="r${p.id}"></div>
+    <div class="link-row fade-item">
+      ${i>0?`<button onclick="goPrev(${i})">← 上一题</button>`:''}
+      ${i<pages.length-1?`<button onclick="goNext(${i})">下一题 →</button>`:''}
+      ${i===pages.length-1?`<button onclick="finish()">🏁 查看结果</button>`:''}
+    </div>
+  `;
+  wrap.appendChild(page);
+
+  // 激活进场动画
+  requestAnimationFrame(()=>{
+    page.style.display='block';
+    requestAnimationFrame(()=>{
+      page.classList.add('enter');
+    });
+  });
+
+  currentPageId = p.id;
+
+  // 绑定选项
+  bindQuiz(p, page);
+  // 倒计时
+  startCountdown('t'+p.id, p.time, ()=>evaluate(p, true));
+}
+
+function goNext(i){ switchPage(()=>goToQuiz(i+1)); }
+function goPrev(i){ switchPage(()=>goToQuiz(i-1)); }
+
+/* ========== 题目逻辑 ========== */
+let selectedCache = {}; // 记录每页选中
+function bindQuiz(p, page){
+  const opts = page.querySelectorAll('.opt');
+  const isMulti = p.type==='multi';
+  selectedCache[p.id] = new Set();
+
+  opts.forEach(opt=>{
+    opt.addEventListener('click', ()=>{
+      if(opt.classList.contains('disabled')) return;
+      const i = parseInt(opt.dataset.i);
+      if(isMulti){
+        if(selectedCache[p.id].has(i)){ selectedCache[p.id].delete(i); opt.classList.remove('selected'); }
+        else { selectedCache[p.id].add(i); opt.classList.add('selected'); }
+      }else{
+        opts.forEach(o=>o.classList.remove('selected'));
+        selectedCache[p.id] = new Set([i]);
+        opt.classList.add('selected');
+      }
+      page.querySelector('#r'+p.id).style.display='none';
+    });
+  });
+
+  page.querySelector('#sub'+p.id).addEventListener('click', ()=>evaluate(p, false));
+}
+
+function evaluate(p, timeout){
+  const page = document.getElementById(p.id);
+  const opts = page.querySelectorAll('.opt');
+  const sel = selectedCache[p.id];
+  const res = page.querySelector('#r'+p.id);
+  const isMulti = p.type==='multi';
+
+  if(!timeout && sel.size===0){
+    showToast('请先作答');
+    return;
+  }
+
+  // 锁定
+  opts.forEach(o=>o.classList.add('disabled'));
+  page.querySelector('#sub'+p.id).disabled=true;
+  clearInterval(currentTimer);
+
+  const rightSet = new Set(p.answer);
+  rightSet.forEach(i=>opts[i].classList.add('correct'));
+
+  let isCorrect;
+  if(isMulti){
+    isCorrect = sel.size===rightSet.size && [...sel].every(i=>rightSet.has(i));
+    sel.forEach(i=>{ if(!rightSet.has(i)) opts[i].classList.add('wrong'); });
+  }else{
+    const chosen = [...sel][0];
+    isCorrect = chosen===p.answer[0];
+    if(chosen!==undefined && !rightSet.has(chosen)) opts[chosen].classList.add('wrong');
+  }
+
+  if(isCorrect && !timeout){
+    score++; playCorrect();
+    res.className='res correct';
+    res.innerHTML='✅ 回答正确！';
+  }else{
+    playWrong();
+    res.className='res wrong';
+    if(timeout) res.innerHTML='⏰ 超时未作答。';
+    else res.innerHTML='❌ 回答错误。';
+
+    // 记录错题
+    const chosenList=[...sel].sort((a,b)=>a-b);
+    wrongRecords.push({
+      question:p.question,
+      userAnswer: chosenList.length ?
+        chosenList.map(i=>answerMap[i]+'. '+p.options[i]).join('、') : '（未作答）',
+      rightAnswer: p.answer.map(i=>answerMap[i]+'. '+p.options[i]).join('、')
+    });
+  }
+  res.style.display='block';
+  page.querySelector('.score-badge').textContent = '得分 '+score;
+}
+
+/* ========== 倒计时 ========== */
+let currentTimer=null;
+function startCountdown(id, seconds, onTimeout){
+  const el=document.getElementById(id);
+  let left=seconds;
+  el.textContent='⏱ '+left;
+  el.classList.remove('low');
+  currentTimer=setInterval(()=>{
+    left--;
+    el.textContent='⏱ '+left;
+    if(left<=5) el.classList.add('low');
+    if(left<=0){
+      clearInterval(currentTimer);
+      el.textContent='⏱ 0';
+      onTimeout();
+    }
+  },1000);
+}
+
+/* ========== 结束页（countUp 计分） ========== */
+function finish(){
+  switchPage(()=>{
+    const wrap=document.getElementById('mainWrap');
+    wrap.innerHTML='';
+    const page=document.createElement('div');
+    page.className='page';
+    page.style.display='block';
+    page.style.position='relative';
+    page.innerHTML=`
+      <h2 class="fade-item" style="text-align:center;color:#7a4a1f;">🎉 测试完成</h2>
+      <p class="fade-item" style="text-align:center;color:#999;margin-top:6px;" id="gradeText2"></p>
+      <div id="finalScore" class="fade-item">0</div>
+      <p class="fade-item" style="text-align:center;color:#777;">共 ${TOTAL} 题</p>
+      <div class="btn-row fade-item" style="margin-top:18px;">
+        <button class="btn" onclick="shareCard()">📤 分享成绩</button>
+      </div>
+      <div class="btn-row fade-item">
+        <button class="btn" style="background:#c9a86a;" onclick="showWrong()">📋 查看错题</button>
+      </div>
+      <div class="btn-row fade-item">
+        <button class="btn" style="background:#b0a898;" onclick="location.reload()">🔄 重新开始</button>
+      </div>
+    `;
+    wrap.appendChild(page);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>page.classList.add('enter')));
+    // countUp
+    countUp(0, score, 900, el=>{ el.textContent=el.target; });
+    // 等级
+    const g=document.getElementById('gradeText2');
+    if(score===TOTAL) g.textContent='🏆 满分！大师级';
+    else if(score>=TOTAL/2) g.textContent='👍 不错，继续加油！';
+    else g.textContent='📖 还需复习';
+  });
+}
+
+/* ========== countUp 数字滚动 ========== */
+function countUp(from, to, dur, cb){
+  const start=performance.now();
+  function tick(now){
+    const t=Math.min((now-start)/dur,1);
+    const ease=1-Math.pow(1-t,3);
+    const val=Math.round(from+(to-from)*ease);
+    cb({target:val});
+    if(t<1) requestAnimationFrame(tick);
+  }
+  requestAnimationFrame(tick);
+}
+
+/* ========== 分享卡片 + 复制 toast ========== */
+function shareCard(){
+  const modal=document.getElementById('modalMask');
+  const content=document.getElementById('modalContent');
+  content.innerHTML=`
+    <h3 style="margin-bottom:12px;">📤 分享成绩</h3>
+    <div class="share-card">
+      <div class="share-title">填仓节知识测试</div>
+      <div class="share-score">${score}/${TOTAL}</div>
+      <div style="color:#7a4a1f;">${score===TOTAL?'🏆 满分通关!':score>0?'👍 还不错!':'📖 继续加油!'}</div>
+    </div>
+    <button class="btn" id="copyShare" style="background:#d9a441;">📋 复制分享文案</button>
+  `;
+  modal.classList.add('show');
+  document.getElementById('copyShare').addEventListener('click', ()=>{
+    const text=`我在填仓节知识测试中答对了 ${score}/${TOTAL} 题！${score===TOTAL?'🏆 满分！':''} 你也来试试吧～`;
+    const ta=document.createElement('textarea');
+    ta.value=text; document.body.appendChild(ta);
+    ta.select();
+    try{ document.execCommand('copy'); showToast('已复制到剪贴板 ✅'); }
+    catch(e){ alert(text); }
+    ta.remove();
+  });
+}
+
+function showWrong(){
+  const modal=document.getElementById('modalMask');
+  const content=document.getElementById('modalContent');
+  let inner='<h3>📋 错题集</h3>';
+  if(wrongRecords.length===0){
+    inner+='<div style="color:#999;text-align:center;padding:16px;">还没有错题 🎉</div>';
+  }else{
+    wrongRecords.forEach(it=>{
+      inner+=`
+        <div class="wrong-item">
+          <div class="wrong-q">题目：${it.question}</div>
+          <div class="my-ans">你的答案：${it.userAnswer}</div>
+          <div class="right-ans">正确答案：${it.rightAnswer}</div>
+        </div>`;
+    });
+  }
+  content.innerHTML=inner;
+  modal.classList.add('show');
+}
+function closeModal(){ document.getElementById('modalMask').classList.remove('show'); }
+
+/* ========== 加载页进度 ========== */
+let loadVal=0;
+const loadTimer=setInterval(()=>{
+  loadVal+=Math.random()*18+8;
+  if(loadVal>=100){
+    loadVal=100;
+    document.getElementById('loadFill').style.width='100%';
+    clearInterval(loadTimer);
+    setTimeout(()=>{
+      // 淡出加载页 → 进入第一题
+      const loading=document.getElementById('loading');
+      loading.classList.remove('enter');
+      loading.classList.add('exit');
+      setTimeout(()=>{
+        loading.style.display='none';
+        startNewPage(()=>goToQuiz(0));
+      },450);
+    },400);
+  }
+  document.getElementById('loadFill').style.width=loadVal+'%';
+},250);
+
+document.getElementById('skipBtn').addEventListener('click', ()=>{
+  clearInterval(loadTimer);
+  document.getElementById('loadFill').style.width='100%';
+  const loading=document.getElementById('loading');
+  loading.classList.remove('enter');
+  loading.classList.add('exit');
+  setTimeout(()=>{
+    loading.style.display='none';
+    startNewPage(()=>goToQuiz(0));
+  },450);
+});
 </script>
 </body>
 </html>
