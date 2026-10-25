@@ -307,17 +307,7 @@ if(review.length){rb.innerHTML='<h3>错 题 温 故</h3>'+review.map(function(r)
 document.getElementById('shareTip').innerText = "邀请好友一同答题，看看谁是民俗达人";
 }
 document.getElementById('restartBtn').onclick=function(){idx=0;score=0;review=[];bmarks=new Set();document.getElementById('resultPanel').classList.add('hidden');document.getElementById('poster').classList.remove('hidden');};
-   // 背景音乐
- const bgMusic = new Audio("bgmusic.mp3");
- bgMusic.loop = true;
- bgMusic.volume = 0.3;
- let musicStarted = false;
- document.addEventListener("click",function(){
-     if(!musicStarted){
-         bgMusic.play().catch(err=>console.log("音乐播放失败",err));
-         musicStarted = true;
-     }
- }
+   
 </script>
 </body>
 </html>
