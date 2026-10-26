@@ -22,6 +22,105 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
   background-image:repeating-linear-gradient(0deg,rgba(58,46,36,.016) 0 1px,transparent 1px 3px);}
 #snow{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:50;}
 
+/* ========== 新增开场动画容器 ========== */
+.opening-wrap{
+  position:fixed;
+  inset:0;
+  z-index:999;
+  background:#221a14;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  pointer-events:auto;
+  overflow:hidden;
+}
+.opening-wrap.ending{
+  animation:openingFadeOut 1s ease-out forwards;
+}
+.opening-seal{
+  width:140px;height:140px;
+  border-radius:16px;
+  background:var(--cinnabar);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--paper);
+  font-weight:700;
+  font-size:16px;
+  letter-spacing:.4em;
+  box-shadow:0 14px 30px rgba(126,44,34,.5),inset 0 0 0 4px rgba(247,241,227,.5);
+  transform:rotate(-4deg) scale(0);
+  animation:sealStamp 1.2s cubic-bezier(.2,.9,.3,1.3) .3s forwards;
+}
+.opening-seal b{
+  font-size:42px;
+  letter-spacing:.1em;
+  line-height:1;
+}
+.opening-title{
+  margin-top:32px;
+  font-size:clamp(36px,9vw,72px);
+  color:var(--paper);
+  letter-spacing:.14em;
+  opacity:0;
+  transform:translateY(20px);
+  animation:textRise .9s ease-out 1.2s forwards;
+  position:relative;
+  overflow:hidden;
+}
+.opening-title::after{
+  content:"";
+  position:absolute;
+  left:-120%;top:0;
+  width:60%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(232,212,154,.65),transparent);
+  animation:goldSweep 1.6s ease 1.5s forwards;
+}
+.opening-sub{
+  margin-top:14px;
+  font-size:clamp(14px,2.5vw,20px);
+  color:var(--gold-light);
+  letter-spacing:.5em;
+  opacity:0;
+  animation:textRise .8s ease-out 1.7s forwards;
+}
+.opening-skip{
+  position:absolute;
+  bottom:40px;
+  right:30px;
+  padding:10px 22px;
+  border:1px solid rgba(247,241,227,.35);
+  background:rgba(0,0,0,.25);
+  color:var(--paper);
+  border-radius:30px;
+  font-size:14px;
+  letter-spacing:.2em;
+  cursor:pointer;
+  opacity:0;
+  animation:textRise .8s ease-out 2.2s forwards;
+  transition:.25s;
+}
+.opening-skip:hover{
+  background:rgba(247,241,227,.12);
+  border-color:var(--gold-light);
+}
+
+@keyframes sealStamp{
+  0%{transform:rotate(-8deg) scale(0.2);opacity:0;}
+  70%{transform:rotate(-3deg) scale(1.08);opacity:1;}
+  100%{transform:rotate(-4deg) scale(1);opacity:1;}
+}
+@keyframes textRise{
+  to{opacity:1;transform:translateY(0);}
+}
+@keyframes goldSweep{
+  to{left:140%;}
+}
+@keyframes openingFadeOut{
+  to{opacity:0;pointer-events:none;visibility:hidden;}
+}
+
 .poster{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;
   justify-content:center;align-items:center;text-align:center;gap:22px;padding:40px 20px;}
 .poster .seal{width:112px;height:112px;border-radius:14px;background:var(--cinnabar);
@@ -128,6 +227,14 @@ body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:0;opa
 </style>
 </head>
 <body>
+<!-- ========== 开场动画DOM ========== -->
+<div class="opening-wrap" id="opening">
+  <div class="opening-seal"><b>北</b><span>俗</span></div>
+  <div class="opening-title">北方民俗文化</div>
+  <div class="opening-sub">北国风情 · 时令雅俗</div>
+  <div class="opening-skip" id="skipOpening">跳过开场</div>
+</div>
+
 <div class="toast" id="toast">链接已复制</div>
 <div id="snow"></div>
 <div class="poster" id="poster">
@@ -207,6 +314,25 @@ document.body.addEventListener('click', ()=>{
 },{once:true});
 // ============================================================
 
+// ========== 开场动画控制 ==========
+const opening = document.getElementById('opening');
+const skipBtn = document.getElementById('skipOpening');
+let openingEnded = false;
+function closeOpening(){
+  if(openingEnded) return;
+  openingEnded = true;
+  opening.classList.add('ending');
+  setTimeout(()=>{
+    opening.style.display = 'none';
+  },1000);
+}
+// 自动播放完毕关闭（总时长约3.2s + 淡出1s）
+setTimeout(closeOpening,3200);
+skipBtn.onclick = function(){
+  playClickSound();
+  closeOpening();
+};
+
 var QUESTIONS=[
 {q:"北方冬季最具代表性的民俗食品是哪一项？",options:["饺子","凉粉","糍粑","汤圆"],ans:0,tip:"北方素有“冬至不端饺子碗，冻掉耳朵没人管”之说，饺子是北方冬日与节庆的重要民俗食品。"},
 {q:"“东北三大怪”中不包括以下哪一项？",options:["窗户纸糊在外","大姑娘叼烟袋","养个孩子吊起来","火盆沿上烙干粮"],ans:3,tip:"通常说法为“窗户纸糊在外、大姑娘叼烟袋、养个孩子吊起来”三种怪象。"},
@@ -239,7 +365,7 @@ var KNOWLEDGE=[
 var idx=0,score=0,shown=false,bmarks=new Set(),review=[],answered=false;
 var snow=document.getElementById('snow');
 (function(){var n=70;for(var i=0;i<n;i++){var s=document.createElement('span');
-s.style.cssText="position:absolute;top:-20px;left:"+(Math.random()*100)+"%;width:"+(3+Math.random()*5)+"px;height:"+(3+Math.random()*5)+"px;background:rgba(255,255,255,.8);border-radius:50%;opacity:"+(.3+Math.random()*.6)+";animation:fall "+(8+Math.random()*10)+"s linear "+(Math.random()*10)+"s infinite;";
+s.style.cssText="position:absolute;top:-20px;left:"+(Math.random()*100)+"%;width:"+(3+Math.random()*5)+"px;height:"+(3+Math.random()*5)+"px;background:rgba(255,255,227,.8);border-radius:50%;opacity:"+(.3+Math.random()*.6)+";animation:fall "+(8+Math.random()*10)+"s linear "+(Math.random()*10)+"s infinite;";
 snow.appendChild(s);}var st=document.createElement('style');st.textContent="@keyframes fall{to{transform:translateY(110vh) translateX(20px);}}";document.head.appendChild(st);})();
 function beep(freq,dur,delay,type){var c=new (window.AudioContext||window.webkitAudioContext)();var o=c.createOscillator(),g=c.createGain();o.type=type||"sine";o.frequency.value=freq;o.connect(g);g.connect(c.destination);var t=c.currentTime+(delay||0);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.18,t+.02);g.gain.exponentialRampToValueAtTime(.0001,t+dur);o.start(t);o.stop(t+dur);setTimeout(function(){c.close();},dur*1000+300);}
 function ok(){beep(523.25,.14,0);beep(659.25,.14,.1);beep(783.99,.22,.2);}
